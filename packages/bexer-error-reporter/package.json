@@ -1,0 +1,16 @@
+{
+  "name": "@bexer/error-reporter",
+  "version": "0.0.0",
+  "module": "./index.js",
+  "keywords": [
+    "browser-extensions",
+    "error",
+    "reporter"
+  ],
+  "dependencies": {
+    "@bexer/utils": "^0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

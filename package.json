@@ -1,0 +1,61 @@
+{
+  "name": "bexer-bundler",
+  "version": "0.0.0",
+  "description": "Error reporter for browser extensions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/error-reporter/bexer"
+  },
+  "main": "./dist/cjs/",
+  "module": "./dist/esm/",
+  "scripts": {
+    "lint-packages": "eslint --ignore-pattern bexer-bexer --ignore-pattern node_modules --ignore-pattern errio.js ./packages",
+    "lint-src": "eslint ./src/**/*.js",
+    "lint-examples": "eslint ./examples --ignore-pattern node_modules --ignore-pattern dist",
+    "lint-root": "eslint ./*.js",
+    "lint-tests": "eslint test",
+    "lint": "npm run lint-src && npm run lint-packages && npm run lint-root && npm run lint-examples && npm run lint-tests",
+    "pack-debug": "cd ./node_modules/debug && npm install --development && npm run build:debug && cd - && cp ./node_modules/debug/dist/debug.es6.js ./vendor/optional-debug.es6.js",
+    "build-lerna": "lerna exec --scope @bexer/* --ignore @bexer/bexer -- rollup -c=../../rollup.config.js",
+    "clean": "shx rm -rf ./packages/bexer-bexer",
+    "build": "npm run clean && shx cp -r ./src/bexer-bexer ./packages/. && npm run build-lerna",
+    "start": "npm run build",
+    "__check": "flow status",
+    "__start-flow": "flow server",
+    "__forever-flow": "flow stop && forever start -c \"npm run start-flow\" ./",
+    "__start": "flow status && npm run build:dev",
+    "__prod": "flow status && npm run build:prod",
+    "test:unit": "echo $TEST_TARGET && karma start karma.conf.js",
+    "test:dev": "TEST_TARGET=$TEST_TARGET karma start --single-run --browsers ChromeHeadless karma.conf.js",
+    "test:unit:all": "for t in ./test/unit/*; do env TEST_TARGET=`basename $t` npm run test:unit --silent || exit 1; done",
+    "test": "npm run test:unit:all --silent"
+  },
+  "author": "ilyaigpetrov <ilyaigpetrov@gmail.com>, (https://github.com/ilyaigpetrov)",
+  "license": "GPL-3.0+",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "karma": "^4.1.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-mocha": "^1.3.0",
+    "lerna": "^3.13.4",
+    "mocha": "^6.1.4",
+    "rollup": "^1.11.2",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "shelljs": "^0.8.3",
+    "shx": "^0.3.2",
+    "sinon": "^7.3.2",
+    "sinon-chrome": "^3.0.1"
+  },
+  "dependencies": {
+    "debug": "^4.1.1"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@bexer/error-notifier",
+  "version": "0.0.0",
+  "module": "./index.js",
+  "keywords": [
+    "browser-extensions",
+    "error",
+    "notifications"
+  ],
+  "dependencies": {
+    "@bexer/commons": "^0.0.0",
+    "@bexer/utils": "^0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@bexer/commons",
+  "version": "0.0.0",
+  "keywords": [
+    "browser-extensions",
+    "error"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

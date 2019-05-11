@@ -1,0 +1,33 @@
+{
+
+  "manifest_version": 2,
+
+  "name": "Bexer source maps test",
+  "description": "Blow up internet!",
+  "version": "0.0.0.1",
+  "author": "homerjsimpson@example.com",
+  "homepage_url": "https://cool-extension.example.com",
+
+  "permissions": [
+    "notifications"
+  ],
+
+  "content_scripts": [{
+      "matches": [
+        "https://error-reporter.github.io/*"
+      ],
+      "run_at": "document_start",
+      "js": ["./receive-messages-from-webpages.js"]
+  }],
+
+  "background": {
+    "persistent": false,
+    "page": "./background.html"
+  },
+
+  "browser_action": {
+    "default_popup": "./pages/popup/index.html",
+    "browser_style": false
+  }
+
+}

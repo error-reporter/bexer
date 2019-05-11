@@ -1,0 +1,22 @@
+{
+  "name": "example-esm-without-bundlers",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Bexer usage examples",
+  "scripts": {
+    "clean": "shx rm -rf ./dist && mkdir ./dist",
+    "copy-src": "shx cp -r ./src/* ./dist/.",
+    "copy-vendor": "shx cp -r ../../vendor ./dist/.",
+    "copy-pages": "shx cp -r ../examples-commons/pages ./dist/.",
+    "copy-index": "shx cp ../examples-commons/index.js ./dist/.",
+    "copy-esm-bexer": "shx cp -r ./node_modules/@bexer/bexer ./dist/vendor/bexer",
+    "build": "npm run clean && npm run copy-src && npm run copy-vendor && npm run copy-pages && npm run copy-index && npm run copy-esm-bexer",
+    "start": "npm run build"
+  },
+  "devDependencies": {
+    "shx": "^0.3.2"
+  },
+  "dependencies": {
+    "@bexer/bexer": "0.0.0"
+  }
+}

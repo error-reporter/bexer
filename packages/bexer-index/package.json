@@ -1,0 +1,21 @@
+{
+  "name": "@bexer/index",
+  "version": "0.0.0",
+  "module": "./index.js",
+  "keywords": [
+    "browser-extensions",
+    "error",
+    "reporter"
+  ],
+  "dependencies": {
+    "@bexer/commons": "^0.0.0",
+    "@bexer/error-transformer": "^0.0.0",
+    "@bexer/error-notifier": "^0.0.0",
+    "@bexer/error-reporter": "^0.0.0",
+    "@bexer/global-error-event-handlers": "^0.0.0",
+    "@bexer/utils": "^0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

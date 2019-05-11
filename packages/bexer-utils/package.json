@@ -1,0 +1,13 @@
+{
+  "name": "@bexer/utils",
+  "version": "0.0.0",
+  "module": "./index.js",
+  "keywords": [
+    "browser-extensions",
+    "error",
+    "utils"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
