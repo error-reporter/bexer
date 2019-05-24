@@ -11,6 +11,9 @@
     "@bexer/error-event-listeners": "^0.0.0",
     "@bexer/utils": "^0.0.0"
   },
+  "devDependencies": {
+    "@bexer/commons": "^0.0.0"
+  },
   "publishConfig": {
     "access": "public"
   }

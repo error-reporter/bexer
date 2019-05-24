@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "allowJs": true,
+    "checkJs": true,
+
+    "target": "ESNext",
+    "moduleResolution": "Node"
+  },
+  "types": [
+    "chrome"
+  ],
+  "include": [
+    "./packages/**/*"
+  ],
+  "exclude": [
+    "./packages/bexer-bexer/**/*"
+  ]
+}

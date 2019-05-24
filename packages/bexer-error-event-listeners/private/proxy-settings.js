@@ -17,7 +17,7 @@ const getSettingsAsync = () =>
 *
 * See: https://developer.chrome.com/extensions/proxy
 */
-
+/** @param {chrome.types.ChromeSettingGetResultDetails} [details_] */
 export const areProxySettingsControllableAsync = async (details_) => {
 
   const details = details_ || await getSettingsAsync();
@@ -25,6 +25,7 @@ export const areProxySettingsControllableAsync = async (details_) => {
 
 };
 
+/** @param {chrome.types.ChromeSettingGetResultDetails} [details_] */
 export const areProxySettingsControlledAsync = async (details_) => {
 
   const details = details_ || await getSettingsAsync();
@@ -34,6 +35,7 @@ export const areProxySettingsControlledAsync = async (details_) => {
 
 export const Messages = {
 
+  /** @param {string} niddle */
   searchSettingsForAsUrl(niddle) {
 
     //  `niddle` may be: 'proxy'.

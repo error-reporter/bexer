@@ -20,7 +20,7 @@
     "clean": "shx rm -rf ./packages/bexer-bexer",
     "build": "npm run clean && shx cp -r ./src/bexer-bexer ./packages/. && npm run build-lerna",
     "start": "npm run build",
-    "__check": "flow status",
+    "type-check": "tsc",
     "__start-flow": "flow server",
     "__forever-flow": "flow stop && forever start -c \"npm run start-flow\" ./",
     "__start": "flow status && npm run build:dev",
@@ -33,6 +33,10 @@
   "author": "ilyaigpetrov <ilyaigpetrov@gmail.com>, (https://github.com/ilyaigpetrov)",
   "license": "GPL-3.0+",
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/chrome": "0.0.83",
     "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
@@ -48,12 +52,14 @@
     "lerna": "^3.13.4",
     "mocha": "^6.1.4",
     "rollup": "^1.11.2",
+    "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-node-resolve": "^4.2.4",
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",
     "sinon": "^7.3.2",
-    "sinon-chrome": "^3.0.1"
+    "sinon-chrome": "^3.0.1",
+    "typescript": "^3.4.5"
   },
   "dependencies": {
     "debug": "^4.1.1"

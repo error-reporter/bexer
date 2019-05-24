@@ -7,6 +7,7 @@
 3. Add utils for safer coding: `mandatory`, `throwIfError`.
 
 */
+/* @returns {never} **/
 export const mandatory = () => {
 
   throw new TypeError(
@@ -14,6 +15,10 @@ export const mandatory = () => {
   );
 };
 
+/**
+  @param {any} value
+  @param {string} message
+*/
 export const assert = (value, message) => {
 
   if (!value) {
@@ -21,6 +26,9 @@ export const assert = (value, message) => {
   }
 };
 
+/**
+  @param {Error[]} args
+*/
 export const throwIfError = (...args) => {
 
   assert(args.length === 1, 'Only one argument (error) must be passed.');
@@ -45,16 +53,19 @@ export const checkChromeError = () => {
 };
 
 // setTimeout fixes error context, see https://crbug.com/357568
+/** @param {Function | { cb: Function, returnValue: any }} arg */
 export const timeouted = (arg = mandatory()) => {
 
+  /** @type {Function} */
   let cb;
+  /** @type {any} */
   let returnValue;
   if (typeof arg === 'function') {
     cb = arg;
   } else {
     ({ cb = mandatory(), returnValue } = arg);
   }
-  return (...args) => {
+  return (/** @type {any[]} */...args) => {
 
     setTimeout(() => cb(...args), 0);
     return returnValue;
@@ -62,13 +73,17 @@ export const timeouted = (arg = mandatory()) => {
 };
 
 // Take error first callback and convert it to chrome API callback.
+/** @param {(_: Error) => any} cb */
 export const chromified = (cb = mandatory()) =>
+  /**
+    @param {any[]} args
+  */
   function wrapper(...args) {
 
     const err = checkChromeError();
     timeouted(cb)(err, ...args);
   };
-
+/** @param {Function} cb */
 export const getOrDie = (cb = mandatory()) =>
   chromified((err, ...args) => {
 

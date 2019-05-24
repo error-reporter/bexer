@@ -1,11 +1,14 @@
 import Debug from '@bexer/commons/private/debug';
 import { mandatory, assert, timeouted } from '@bexer/utils';
-import { EXT_ERROR, PAC_ERROR } from '@bexer/commons/error-types';
+import * as ErrorTypes from '@bexer/commons/error-types';
 import { areProxySettingsControlledAsync } from './private/proxy-settings';
 
 const debug = Debug('bexer:catcher');
 
 const bgName = 'BG';
+/**
+ * @param {Window} hostWindow
+*/
 const generateNameForDebug = (hostWindow) => {
 
   if (hostWindow === window) {
@@ -17,12 +20,23 @@ const generateNameForDebug = (hostWindow) => {
     .toUpperCase();
 };
 
+/**
+  @param {{
+    hostWindow: Window,
+    typedErrorEventListener: (
+      _: GetAllValuesOf<typeof ErrorTypes>,
+      __: ErrorEvent | chrome.proxy.ErrorDetails,
+    ) => any,
+    nameForDebug: string,
+  }} _
+  @param {Function} [cb]
+*/
 // eslint-disable-next-line
 export const installTypedErrorEventListenersOn = ({
   hostWindow = mandatory(),
   typedErrorEventListener = mandatory(),
   nameForDebug = generateNameForDebug(hostWindow),
-} = {}, cb) => {
+}, cb) => {
 
   const ifInBg = hostWindow === window;
   if (ifInBg) {
@@ -35,15 +49,20 @@ export const installTypedErrorEventListenersOn = ({
   }
   debug(ifInBg ? 'Installing handlers in BG.' : `Installing handlers in ${nameForDebug}.`);
 
+  /** @param {ErrorEvent} errorEvent */
   const listener = (errorEvent) => {
 
     debug(nameForDebug, 'caught:', errorEvent);
-    typedErrorEventListener(EXT_ERROR, errorEvent);
+    typedErrorEventListener(ErrorTypes.EXT_ERROR, errorEvent);
   };
 
   const ifUseCapture = true;
   hostWindow.addEventListener('error', listener, ifUseCapture);
 
+  /**
+    @param {PromiseRejectionEvent} event
+    @returns {never}
+  */
   const rejHandler = (event) => {
 
     event.preventDefault();
@@ -72,7 +91,7 @@ export const installTypedErrorEventListenersOn = ({
           fatal: false,
         }
       */
-      typedErrorEventListener(PAC_ERROR, details);
+      typedErrorEventListener(ErrorTypes.PAC_ERROR, details);
     });
   }
 

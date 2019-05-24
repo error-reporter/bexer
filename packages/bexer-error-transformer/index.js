@@ -48,8 +48,18 @@ export const getSourceMappedErrorStackAsync = (error = mandatory()) =>
 export const errorToPlainObject = (error = mandatory()) =>
   toObject(error, { stack: true, private: true });
 
+/** @param {AnyStringToValuesOf<ErrorEvent>} errorEvent */
 export const errorEventToPlainObject = (errorEvent = mandatory()) => {
 
+  /** @type {{
+    message?: string,
+    filename?: string,
+    lineno?: number,
+    colno?: number,
+    type?: string,
+    path?: Array<Element>,
+    error?: JsonObject,
+  }} */
   const plainObj = [
     'message',
     'filename',
@@ -57,12 +67,18 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
     'colno',
     'type',
     'path',
-  ].reduce((acc, prop) => {
+  ].reduce(
+    /**
+      @param {JsonObject} acc
+    */
+    (acc, prop) => {
 
-    acc[prop] = errorEvent[prop];
-    return acc;
+      acc[prop] = errorEvent[prop];
+      return acc;
 
-  }, {});
+    },
+    {}
+  );
   if (plainObj.path) {
     const pathStr = plainObj.path.map((o) => {
 
@@ -81,7 +97,8 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
 
     }).join(', ');
 
-    plainObj.path = `[${pathStr}]`;
+    /** @type {(typeof plainObj) | { path: string }} */
+    (plainObj).path = `[${pathStr}]`;
   }
 
   if (errorEvent.error && typeof errorEvent === 'object') {

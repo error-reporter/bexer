@@ -16,7 +16,9 @@ const defaultOptions = {
   inherited: true, // Include inherited properties
   stack: false,    // Include stack property
   private: false,  // Include properties with leading or trailing underscores
+  /** @type {Array<string>} */
   exclude: [],     // Property names to exclude (low priority)
+  /** @type {Array<string>} */
   include: [],     // Property names to include (high priority)
 };
 
@@ -24,11 +26,15 @@ const defaultOptions = {
 // on top of the global defaults and the registered option overrides. If the
 // constructor of the error instance has not been registered yet, register it
 // with the provided options.
+/**
+  @param {Error} error
+*/
 export const toObject = (error, callOptions = {}) => {
 
   const options = { ...defaultOptions, ...callOptions };
 
   // Always explicitly include essential error properties.
+  /** @type {JsonObject} */
   const object = {
     name: error.name,
     message: error.message,
@@ -40,10 +46,10 @@ export const toObject = (error, callOptions = {}) => {
 
   for (const prop in error) {
     // Skip exclusion checks if property is in include list.
-    if (options.include.indexOf(prop) === -1) {
-      if (typeof error[prop] === 'function') continue;
+    if (!options.include.includes(prop)) {
+      if (typeof(/** @type {any} */(error)[prop]) === 'function') continue;
 
-      if (options.exclude.indexOf(prop) !== -1) continue;
+      if (options.exclude.includes(prop)) continue;
 
       if (!options.inherited) {
         if (!Object.prototype.hasOwnProperty.call(error, prop)) continue;
@@ -56,7 +62,7 @@ export const toObject = (error, callOptions = {}) => {
       }
     }
 
-    const value = error[prop];
+    const value = /** @type {any} */(error)[prop];
 
     // Recurse if nested object has name and message properties.
     if (typeof value === 'object' && value && value.name && value.message) {

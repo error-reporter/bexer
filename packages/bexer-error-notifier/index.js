@@ -3,9 +3,12 @@ import * as ErrorTypes from '@bexer/commons/error-types';
 
 const manifest = chrome.runtime.getManifest();
 
-/*
+/**
   Loads icon by url or generates icon from text when offline.
   Returns blob url.
+  Chrome notifications api doesn't accept remote urls but blob urls are fine.
+  @param {string} iconUrl
+  @returns {Promise<string> | undefined}
 */
 const loadIconAsBlobUrlAsync = (iconUrl = mandatory()) => {
 
@@ -17,6 +20,9 @@ const loadIconAsBlobUrlAsync = (iconUrl = mandatory()) => {
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    return;
+  }
 
   return new Promise((resolve) => {
 
@@ -51,6 +57,13 @@ const loadIconAsBlobUrlAsync = (iconUrl = mandatory()) => {
   });
 };
 
+/**
+  @param {{
+    extErrorIconUrl?: string,
+    pacErrorIconUrl?: string,
+    maskIconUrl?: string | void | false,
+  }} [_],
+*/
 // eslint-disable-next-line
 export const installErrorNotifier = ({
   extErrorIconUrl = 'https://error-reporter.github.io/v0/icons/ext-error-128.png',
@@ -63,18 +76,27 @@ export const installErrorNotifier = ({
     [ErrorTypes.PAC_ERROR]: pacErrorIconUrl,
   };
 
+  /** @type {{[_: string]: Function}} */
   const notyIdToClickHandler = {};
   const notyClickedListener = timeouted(
+    /** @param {string} notyId */
     (notyId) =>
       (notyIdToClickHandler[notyId] || (() => {}))(),
   );
   chrome.notifications.onClicked.addListener(notyClickedListener);
 
   const notyClosedListener = timeouted(
+    /** @param {string} notyId */
     (notyId) => { delete notyIdToClickHandler[notyId]; },
   );
   chrome.notifications.onClosed.addListener(notyClosedListener);
 
+  /**
+    @param {{
+      notyOptions: chrome.notifications.NotificationOptions,
+      clickHandler: Function,
+    }} _
+  */
   const notifyWithHandler = ({
     notyOptions = mandatory(),
     clickHandler = mandatory(),
@@ -85,6 +107,17 @@ export const installErrorNotifier = ({
     },
   );
 
+  /**
+    @typedef {{
+      clickHandler: Function,
+      errorEventLike: ErrorEvent,
+      errorType?: GetAllValuesOf<typeof ErrorTypes>,
+      notyTitle?: string,
+      context?: string,
+      ifSticky?: boolean,
+    }} ErrorNotification
+    @param {ErrorNotification} _
+  */
   const notifyAboutError = async ({
     clickHandler = mandatory(),
     // ErrorEvent (EXT_ERROR, PAC_ERROR), Error, { message: '...' } or String
@@ -106,6 +139,7 @@ export const installErrorNotifier = ({
         ? errorEventLike.error
         : errorEventLike.message
     ) || errorEventLike.toString();
+    /** @type {string | undefined} */
     const iconUrl = await loadIconAsBlobUrlAsync(
       errorTypeToIconUrl[errorType],
     );
@@ -138,13 +172,14 @@ export const installErrorNotifier = ({
 
   let ifUninstalled = false;
   return {
-    notifyAboutError: (...args) => {
+    /** @param {ErrorNotification} errNoty */
+    notifyAboutError: (errNoty) => {
       if (ifUninstalled) {
         throw new Error(
           'Error Notifier of this function was uninstalled.',
         );
       }
-      notifyAboutError(...args);
+      notifyAboutError(errNoty);
     },
     uninstallErrorNotifier: () => {
 

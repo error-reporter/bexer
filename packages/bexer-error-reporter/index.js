@@ -2,6 +2,7 @@ import { mandatory, assert, timeouted } from '@bexer/utils';
 
 const manifest = chrome.runtime.getManifest();
 
+/** @param {Function} handler */
 export const installErrorSubmissionHandler = (handler) =>
   chrome.runtime.onMessage.addListener(
     timeouted({
@@ -15,6 +16,11 @@ https://developer.chrome.com/extensions/runtime#event-onMessage
       */
       returnValue: true,
       // Don't make cb async, because FireFox doesn't catch promise rejections.
+      /**
+        @param {{ action: 'SEND_REPORT' }} request
+        @param {any} sender
+        @param {Function} sendResponse
+      */
       cb: (request, sender, sendResponse) => {
 
         if (request.action !== 'SEND_REPORT') {
@@ -35,6 +41,12 @@ https://developer.chrome.com/extensions/runtime#event-onMessage
     }),
   );
 
+/**
+  @param {{
+    errorType?: GetAllValuesOf<import('@bexer/commons/error-types')>,
+    serializablePayload: JsonObject,
+  }} _
+*/
 export const makeReport = ({
   errorType,
   serializablePayload = mandatory(),
@@ -47,13 +59,26 @@ export const makeReport = ({
   platform: navigator.platform,
 });
 
+/**
+  @param {{
+    ifSubmissionHandlerInstalled?: boolean,
+    sendReportsToEmail?: string,
+    sendReportsInLanguages?: Array<string>,
+    errorTitle: string,
+    report: {
+      extName: string,
+      version: string,
+      payload: JsonObject,
+    },
+  }} _
+*/
 export const openErrorReporter = ({
   ifSubmissionHandlerInstalled,
   sendReportsToEmail,
   sendReportsInLanguages = ['en'],
   errorTitle = mandatory(),
   report = mandatory(),
-} = {}) => {
+}) => {
 
   assert(
     !(ifSubmissionHandlerInstalled && sendReportsToEmail),

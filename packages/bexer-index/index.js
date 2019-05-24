@@ -15,6 +15,10 @@ import {
 import { EXT_ERROR } from '@bexer/commons/error-types';
 import * as Utils from '@bexer/utils';
 
+/**
+  @typedef {GetAllValuesOf<import('@bexer/commons/error-types')>} ErrorTypes
+*/
+
 const { mandatory, assert } = Utils;
 
 export {
@@ -24,6 +28,11 @@ export {
   addGlobalHandler,
 };
 
+/**
+  @param {ErrorTypes} errorType
+  @param {ErrorEvent} errorEvent
+  @returns {Promise<any>}
+*/
 const toPlainObjectAsync = async (
   errorType = mandatory(),
   errorEvent = mandatory(),
@@ -40,14 +49,27 @@ installGlobalHandlersOn({
   nameForDebug: 'BG',
 });
 
+/**
+  @param {{
+    submissionOpts: {
+      handler?: Function,
+      sendReportsToEmail?: string,
+      sendReportsInLanguages?: Array<string>,
+    },
+    ifToNotifyAboutAsync?: (
+        errorType: ErrorTypes,
+        errorEvent: ErrorEvent | chrome.proxy.ErrorDetails,
+      ) => boolean,
+  }} _
+*/
 export const installErrorReporter = ({
   submissionOpts: {
-    handler,
+    handler = undefined,
     sendReportsToEmail = handler ? undefined : mandatory(),
     sendReportsInLanguages = ['en'],
-  } = {},
-  ifToNotifyAboutAsync = (/* errorType, errorEvent */) => true,
-} = {}) => {
+  },
+  ifToNotifyAboutAsync = () => true,
+}) => {
 
   assert(
     !(handler && sendReportsToEmail),
@@ -63,6 +85,10 @@ export const installErrorReporter = ({
     uninstallErrorNotifier,
   } = installErrorNotifier();
 
+  /**
+    @param {ErrorTypes} errorType
+    @param {ErrorEvent} errorEvent
+  */
   const anotherGlobalHandler = async (errorType, errorEvent) => {
 
     const ifToNotify = await ifToNotifyAboutAsync(

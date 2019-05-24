@@ -2,10 +2,17 @@ import Path from 'path';
 import shell from 'shelljs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonJs from 'rollup-plugin-commonjs';
+// import babel from 'rollup-plugin-babel';
+
+const extensions = [
+  '.js',
+  '.ts',
+];
 
 const plugins = [
-  // nodeResolve(),
-  // commonJs(),
+  nodeResolve({ extensions }),
+  commonJs(),
+  // babel({ extensions }),
 ];
 
 const { LERNA_ROOT_PATH } = process.env;
