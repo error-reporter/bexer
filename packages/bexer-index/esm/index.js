@@ -12,7 +12,7 @@ import {
 import {
   errorEventToPlainObject,
 } from '@bexer/error-transformer';
-import { EXT_ERROR } from '@bexer/commons/error-types';
+import { EXT_ERROR } from '@bexer/commons/esm/error-types';
 import * as Utils from '@bexer/utils';
 
 /**

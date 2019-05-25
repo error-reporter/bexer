@@ -1,7 +1,7 @@
 {
   "name": "@bexer/error-reporter",
   "version": "0.0.0",
-  "module": "./index.js",
+  "module": "./esm/index.js",
   "keywords": [
     "browser-extensions",
     "error",

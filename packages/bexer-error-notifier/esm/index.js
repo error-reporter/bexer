@@ -1,5 +1,5 @@
 import { assert, mandatory, timeouted } from '@bexer/utils';
-import * as ErrorTypes from '@bexer/commons/error-types';
+import * as ErrorTypes from '@bexer/commons/esm/error-types';
 
 const manifest = chrome.runtime.getManifest();
 

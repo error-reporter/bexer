@@ -1,6 +1,6 @@
-import Debug from '@bexer/commons/private/debug';
+import Debug from '@bexer/commons/esm/private/debug';
 import { mandatory, assert, timeouted } from '@bexer/utils';
-import * as ErrorTypes from '@bexer/commons/error-types';
+import * as ErrorTypes from '@bexer/commons/esm/error-types';
 import { areProxySettingsControlledAsync } from './private/proxy-settings';
 
 const debug = Debug('bexer:catcher');
