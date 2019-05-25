@@ -51,19 +51,42 @@ const filenameToExportedName = (fn) => 'BexerComponents.' + fn
   .replace(/\.js$/, '')
   .replace(/-([^-])/g, (w, g) => g.toUpperCase());
 
-const output = (outputFilePath, format = 'esm') =>
-  [
+const output = (outputFilePath, format = 'esm') => {
+
+  const ifIife = format === 'iife';
+  const iifeOpts = ifIife ? {
+    name: filenameToExportedName(outputFilePath),
+    globals: filenameToExportedName,
+  } : {};
+  const commonOpts = {
+    ...iifeOpts,
+    format,
+    paths: pkgNameToFilename,
+    banner: `// Generated from package ${PKG.name} v${PKG.version}`,
+  };
+  outputFilePath = outputFilePath.replace(/^(?:\.\/)?esm/, './');
+  const outs = [
     {
-      file: Path.join(allInOnePath, format, outputFilePath),
-      ...(format === 'iife' ? {
-        name: filenameToExportedName(outputFilePath),
-        globals: filenameToExportedName,
-      } : {}),
-      format,
-      paths: pkgNameToFilename,
-      banner: `// Generated from package ${PKG.name} v${PKG.version}`,
+      file: Path.join(
+        allInOnePath,
+        format,
+        outputFilePath,
+      ),
+      ...commonOpts,
     },
   ];
+  if (ifIife) {
+    outs.push({
+      file: Path.join(
+        '.',
+        format,
+        outputFilePath,
+      ),
+      ...commonOpts,
+    });
+  }
+  return outs;
+};
 
 const getTasks = (format) => PKG.module
   ? [
@@ -74,7 +97,7 @@ const getTasks = (format) => PKG.module
         plugins,
       }
     ]
-  : shell.ls('*.js', '**/*.js').map((jsFilePath) => ({
+  : shell.ls('*.js', '**/*.js').filter((fn) => !fn.startsWith('iife')).map((jsFilePath) => ({
       input: Path.join(PACKAGE_ROOT_PATH, jsFilePath),
       output: output(jsFilePath, format),
       external,
