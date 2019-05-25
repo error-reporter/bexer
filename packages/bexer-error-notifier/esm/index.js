@@ -80,8 +80,11 @@ export const installErrorNotifier = ({
   const notyIdToClickHandler = {};
   const notyClickedListener = timeouted(
     /** @param {string} notyId */
-    (notyId) =>
-      (notyIdToClickHandler[notyId] || (() => {}))(),
+    (notyId) => {
+
+      chrome.notifications.clear(notyId);
+      (notyIdToClickHandler[notyId] || (() => {}))();
+    },
   );
   chrome.notifications.onClicked.addListener(notyClickedListener);
 
