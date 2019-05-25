@@ -16,6 +16,7 @@
     "./packages/**/*"
   ],
   "exclude": [
-    "./packages/bexer-components/**/*"
+    "./packages/bexer-components/**/*",
+    "./packages/rollup.config.js"
   ]
 }

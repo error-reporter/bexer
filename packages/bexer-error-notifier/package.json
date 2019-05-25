@@ -2,6 +2,7 @@
   "name": "@bexer/error-notifier",
   "version": "0.0.0",
   "module": "./esm/index.js",
+  "main": "./esm/index.js",
   "keywords": [
     "browser-extensions",
     "error",

@@ -43,7 +43,7 @@ https://developer.chrome.com/extensions/runtime#event-onMessage
 
 /**
   @param {{
-    errorType?: GetAllValuesOf<import('@bexer/commons/error-types')>,
+    errorType?: GetAllValuesOf<import('@bexer/commons/esm/error-types')>,
     serializablePayload: JsonObject,
   }} _
 */

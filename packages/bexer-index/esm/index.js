@@ -16,7 +16,7 @@ import { EXT_ERROR } from '@bexer/commons/esm/error-types';
 import * as Utils from '@bexer/utils';
 
 /**
-  @typedef {GetAllValuesOf<import('@bexer/commons/error-types')>} ErrorTypes
+  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypes
 */
 
 const { mandatory, assert } = Utils;
