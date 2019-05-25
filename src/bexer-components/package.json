@@ -1,5 +1,5 @@
 {
-  "name": "@bexer/bexer",
+  "name": "@bexer/components",
   "version": "0.0.0",
   "description": "Browser Extensions Error Reporter catches global errors, shows notifications and opens error reporter in one click",
   "license": "SEE LICENSE IN ./LICENSE.md",

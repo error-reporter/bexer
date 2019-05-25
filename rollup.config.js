@@ -6,7 +6,6 @@ import commonJs from 'rollup-plugin-commonjs';
 
 const extensions = [
   '.js',
-  '.ts',
 ];
 
 const plugins = [
@@ -45,29 +44,41 @@ const external = (name) => {
 };
 
 const filename = pkgNameToFilename(PKG.name);
-const allInOnePath = Path.join(LERNA_ROOT_PATH, 'packages', 'bexer-bexer');
+const allInOnePath = Path.join(LERNA_ROOT_PATH, 'packages', 'bexer-components');
 
-const output = (outputFilePath) => [
-  {
-    file: Path.join(allInOnePath, outputFilePath),
-    format: 'esm',
-    paths: pkgNameToFilename,
-    banner: `// Generated from package ${PKG.name} v${PKG.version}`,
-  },
-];
+const filenameToExportedName = (fn) => 'BexerComponents.' + fn
+  .replace(/^.+\//, '')
+  .replace(/\.js$/, '')
+  .replace(/-([^-])/g, (w, g) => g.toUpperCase());
 
-export default PKG.module
-  ? [
+const output = (outputFilePath, format = 'esm') =>
+  [
     {
-      input: PKG.module,
-      output: output(filename),
+      file: Path.join(allInOnePath, format, outputFilePath),
+      ...(format === 'iife' ? {
+        name: filenameToExportedName(outputFilePath),
+        globals: filenameToExportedName,
+      } : {}),
+      format,
+      paths: pkgNameToFilename,
+      banner: `// Generated from package ${PKG.name} v${PKG.version}`,
+    },
+  ];
+
+const getTasks = (format) => PKG.module
+  ? [
+      {
+        input: PKG.module,
+        output: output(filename, format),
+        external,
+        plugins,
+      }
+    ]
+  : shell.ls('*.js', '**/*.js').map((jsFilePath) => ({
+      input: Path.join(PACKAGE_ROOT_PATH, jsFilePath),
+      output: output(jsFilePath, format),
       external,
       plugins,
-    },
-  ]
-  : shell.ls('*.js', '**/*.js').map((jsFilePath) => ({
-    input: Path.join(PACKAGE_ROOT_PATH, jsFilePath),
-    output: output(jsFilePath),
-    external,
-    plugins,
   }));
+
+export default ['esm', 'iife'].map(getTasks).flat();
