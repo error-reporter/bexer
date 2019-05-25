@@ -91,12 +91,18 @@ export const installErrorReporter = ({
   */
   const anotherGlobalHandler = async (errorType, errorEvent) => {
 
-    const ifToNotify = await ifToNotifyAboutAsync(
-      errorType,
-      errorEvent,
-    );
-    if (!ifToNotify) {
-      return;
+    try {
+      const ifToNotify = await ifToNotifyAboutAsync(
+        errorType,
+        errorEvent,
+      );
+      if (!ifToNotify) {
+        return;
+      }
+    } catch(e) {
+      // Notify about anohter, more important error.
+      errorType = EXT_ERROR;
+      errorEvent = e;
     }
     notifyAboutError({
       errorType,
