@@ -1,6 +1,6 @@
 {
   "name": "@bexer/components",
-  "version": "0.0.0",
+  "version": "0.0.6",
   "description": "Compatible with each other bexer components gathered in a single package",
   "license": "SEE LICENSE IN ./LICENSE.md",
   "main": "./iife/index.js",
