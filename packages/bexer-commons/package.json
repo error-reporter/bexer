@@ -1,11 +1,12 @@
 {
   "name": "@bexer/commons",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [
     "browser-extensions",
     "error"
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "e95047ced0e5b403df216401edcd53ab5f636f4d"
 }
