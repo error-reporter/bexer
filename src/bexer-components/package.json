@@ -4,7 +4,7 @@
   "description": "Compatible with each other bexer components gathered in a single package",
   "license": "SEE LICENSE IN ./LICENSE.md",
   "main": "./iife/index.js",
-  "module": "./expose-to-window-esm.js",
+  "module": "./esm/index.js",
   "author": "ilyaigpetrov <ilyaigpetrov@gmail.com>, (https://git.io/ilyaigpetrov)",
   "repository": {
     "type": "git",

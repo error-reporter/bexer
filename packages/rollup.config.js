@@ -30,10 +30,10 @@ const pkgNameToFilename = (name) => {
     /*
       @bexer/index -> index.js
       @bexer/common -> common.js
-      @bexer/common/error-type -> error-type.js
-      @bexer/common/private/debug -> private/debug.js
+      @bexer/common/esm/error-type -> error-type.js
+      @bexer/common/esm/private/debug -> private/debug.js
     */
-    return `./${name.replace(/^@bexer\/(?:.+?\/)?(.+)$/, '$1')}.js`;
+    return `./${name.replace(/^@bexer\/(?:.+?\/)?(?:esm\/)?(.+)$/, '$1')}.js`;
   }
   return name;
 };
