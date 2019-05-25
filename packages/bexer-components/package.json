@@ -1,6 +1,6 @@
 {
   "name": "@bexer/components",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Compatible with each other bexer components gathered in a single package",
   "license": "SEE LICENSE IN ./LICENSE.md",
   "main": "./iife/index.js",
@@ -17,6 +17,5 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "93bdaf8e00a2a7b50a97303fbf6e3ea8438ea23d"
+  }
 }

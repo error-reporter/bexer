@@ -84,7 +84,7 @@ export const chromified = (cb = mandatory()) =>
     timeouted(cb)(err, ...args);
   };
 /** @param {Function} [cb] */
-export const getOrDie = (cb) =>
+export const workOrDie = (cb) =>
   chromified((err, ...args) => {
 
     if (err) {

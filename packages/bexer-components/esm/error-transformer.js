@@ -1,4 +1,4 @@
-// Generated from package @bexer/error-transformer v0.0.1
+// Generated from package @bexer/error-transformer v0.0.3
 import { mandatory } from './utils.js';
 
 /*

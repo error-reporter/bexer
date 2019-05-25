@@ -1,10 +1,10 @@
-import { getOrDie } from '@bexer/utils';
+import { workOrDie } from '@bexer/utils';
 
 const getSettingsAsync = () =>
   new Promise((resolve) =>
     chrome.proxy.settings.get(
       {},
-      getOrDie(resolve),
+      workOrDie(resolve),
     ));
 
 /*

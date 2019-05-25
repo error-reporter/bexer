@@ -1,4 +1,4 @@
-// Generated from package @bexer/error-reporter v0.0.1
+// Generated from package @bexer/error-reporter v0.0.3
 import { timeouted, mandatory, assert } from './utils.js';
 
 const manifest = chrome.runtime.getManifest();

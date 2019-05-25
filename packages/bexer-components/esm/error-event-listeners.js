@@ -1,13 +1,13 @@
-// Generated from package @bexer/error-event-listeners v0.0.1
+// Generated from package @bexer/error-event-listeners v0.0.3
 import Debug from './private/debug.js';
-import { getOrDie, mandatory, assert, timeouted } from './utils.js';
+import { workOrDie, mandatory, assert, timeouted } from './utils.js';
 import { PAC_ERROR, EXT_ERROR } from './error-types.js';
 
 const getSettingsAsync = () =>
   new Promise((resolve) =>
     chrome.proxy.settings.get(
       {},
-      getOrDie(resolve),
+      workOrDie(resolve),
     ));
 
 /**

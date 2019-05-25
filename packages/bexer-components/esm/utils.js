@@ -1,4 +1,4 @@
-// Generated from package @bexer/utils v0.0.1
+// Generated from package @bexer/utils v0.0.3
 /*
 
 # Purpose
@@ -85,7 +85,7 @@ const chromified = (cb = mandatory()) =>
     timeouted(cb)(err, ...args);
   };
 /** @param {Function} [cb] */
-const getOrDie = (cb) =>
+const workOrDie = (cb) =>
   chromified((err, ...args) => {
 
     if (err) {
@@ -94,4 +94,4 @@ const getOrDie = (cb) =>
     cb && cb(...args);
   });
 
-export { assert, checkChromeError, chromified, getOrDie, mandatory, throwIfError, timeouted };
+export { assert, checkChromeError, chromified, mandatory, throwIfError, timeouted, workOrDie };
