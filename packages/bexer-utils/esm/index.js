@@ -32,7 +32,7 @@ export const assert = (value, message) => {
 export const throwIfError = (...args) => {
 
   assert(args.length <= 1, 'Only zero or one argument (error) must be passed.');
-  const err = args[0];
+  const err = args[0] || checkChromeError();
   if (err) {
     throw err;
   }
@@ -83,12 +83,12 @@ export const chromified = (cb = mandatory()) =>
     const err = checkChromeError();
     timeouted(cb)(err, ...args);
   };
-/** @param {Function} cb */
-export const getOrDie = (cb = mandatory()) =>
+/** @param {Function} [cb] */
+export const getOrDie = (cb) =>
   chromified((err, ...args) => {
 
     if (err) {
       throw err;
     }
-    cb(...args);
+    cb && cb(...args);
   });
