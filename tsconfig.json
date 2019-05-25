@@ -16,6 +16,6 @@
     "./packages/**/*"
   ],
   "exclude": [
-    "./packages/bexer-bexer/**/*"
+    "./packages/bexer-components/**/*"
   ]
 }

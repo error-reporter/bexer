@@ -1,7 +1,7 @@
 import { installTypedErrorEventListenersOn } from '@bexer/error-event-listeners';
 import { mandatory } from '@bexer/utils';
 /**
-  @typedef {GetAllValuesOf<import('@bexer/commons/error-types')>} ErrorTypes
+  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypes
   @typedef {
     (_: ErrorTypes, __: ErrorEvent | chrome.proxy.ErrorDetails) => any
   } ErrorHandler
