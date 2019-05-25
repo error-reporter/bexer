@@ -1,9 +1,10 @@
 {
   "name": "@bexer/components",
   "version": "0.0.0",
-  "description": "Browser Extensions Error Reporter catches global errors, shows notifications and opens error reporter in one click",
+  "description": "Compatible with each other bexer components gathered in a single package",
   "license": "SEE LICENSE IN ./LICENSE.md",
-  "module": "./index.js",
+  "main": "./iife/index.js",
+  "module": "./expose-to-window-esm.js",
   "author": "ilyaigpetrov <ilyaigpetrov@gmail.com>, (https://git.io/ilyaigpetrov)",
   "repository": {
     "type": "git",
