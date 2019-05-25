@@ -31,7 +31,7 @@ export const assert = (value, message) => {
 */
 export const throwIfError = (...args) => {
 
-  assert(args.length === 1, 'Only one argument (error) must be passed.');
+  assert(args.length <= 1, 'Only zero or one argument (error) must be passed.');
   const err = args[0];
   if (err) {
     throw err;
