@@ -54,9 +54,7 @@ export const installGlobalHandlersOn = (
       nameForDebug,
       typedErrorEventListener: triggerGlobalHandlers,
     },
-    // cb is not invoked immediately, but timeouted,
-    // that's why uninstallGlobalHandlers will be defined.
-    () => cb && cb(uninstallGlobalHandlers),
+    cb,
   );
   return uninstallGlobalHandlers;
 };

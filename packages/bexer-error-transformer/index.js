@@ -43,23 +43,29 @@ export const getSourceMappedErrorEventAsync = async (
 
 export const getSourceMappedErrorStackAsync = (error = mandatory()) =>
   privateGetSourceMappedErrorStackAsync(error, new StackTraceGps());
-*/
 
+*/
+/**
+  @param {Error} error
+*/
 export const errorToPlainObject = (error = mandatory()) =>
   toObject(error, { stack: true, private: true });
+
+/** @typedef {{
+  message?: string,
+  filename?: string,
+  lineno?: number,
+  colno?: number,
+  type?: string,
+  path?: Array<Element>,
+  error?: JsonObject,
+  [key: string]: any,
+}} ErrorEventLike */
 
 /** @param {AnyStringToValuesOf<ErrorEvent>} errorEvent */
 export const errorEventToPlainObject = (errorEvent = mandatory()) => {
 
-  /** @type {{
-    message?: string,
-    filename?: string,
-    lineno?: number,
-    colno?: number,
-    type?: string,
-    path?: Array<Element>,
-    error?: JsonObject,
-  }} */
+  /** @type {ErrorEventLike} */
   const plainObj = [
     'message',
     'filename',
@@ -70,10 +76,12 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
   ].reduce(
     /**
       @param {JsonObject} acc
+      @param {string} prop
+      @returns {ErrorEventLike}
     */
     (acc, prop) => {
 
-      acc[prop] = errorEvent[prop];
+      acc[prop] = (/** @type any */errorEvent[prop]);
       return acc;
 
     },

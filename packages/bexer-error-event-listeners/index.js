@@ -27,7 +27,7 @@ const generateNameForDebug = (hostWindow) => {
       _: GetAllValuesOf<typeof ErrorTypes>,
       __: ErrorEvent | chrome.proxy.ErrorDetails,
     ) => any,
-    nameForDebug: string,
+    nameForDebug?: string,
   }} _
   @param {Function} [cb]
 */
@@ -50,14 +50,14 @@ export const installTypedErrorEventListenersOn = ({
   debug(ifInBg ? 'Installing handlers in BG.' : `Installing handlers in ${nameForDebug}.`);
 
   /** @param {ErrorEvent} errorEvent */
-  const listener = (errorEvent) => {
+  const errorHandler = (errorEvent) => {
 
     debug(nameForDebug, 'caught:', errorEvent);
     typedErrorEventListener(ErrorTypes.EXT_ERROR, errorEvent);
   };
 
   const ifUseCapture = true;
-  hostWindow.addEventListener('error', listener, ifUseCapture);
+  hostWindow.addEventListener('error', errorHandler, ifUseCapture);
 
   /**
     @param {PromiseRejectionEvent} event
@@ -95,13 +95,15 @@ export const installTypedErrorEventListenersOn = ({
     });
   }
 
-  if (cb) {
-    timeouted(cb)();
-  }
+  const uninstallErrorHandlers = () => {
 
-  return function uninstallListeners() {
-
-    hostWindow.removeEventListener('error', listener, ifUseCapture);
+    hostWindow.removeEventListener('error', errorHandler, ifUseCapture);
     hostWindow.removeEventListener('unhandledrejection', rejHandler, ifUseCapture);
   };
+
+  if (cb) {
+    timeouted(cb)(uninstallErrorHandlers);
+  }
+
+  return uninstallErrorHandlers;
 };

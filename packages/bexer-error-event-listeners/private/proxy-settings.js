@@ -17,7 +17,10 @@ const getSettingsAsync = () =>
 *
 * See: https://developer.chrome.com/extensions/proxy
 */
-/** @param {chrome.types.ChromeSettingGetResultDetails} [details_] */
+/**
+  @param {chrome.types.ChromeSettingGetResultDetails} [details_]
+  @returns {Promise<boolean>}
+*/
 export const areProxySettingsControllableAsync = async (details_) => {
 
   const details = details_ || await getSettingsAsync();
@@ -25,7 +28,10 @@ export const areProxySettingsControllableAsync = async (details_) => {
 
 };
 
-/** @param {chrome.types.ChromeSettingGetResultDetails} [details_] */
+/**
+  @param {chrome.types.ChromeSettingGetResultDetails} [details_]
+  @returns {Promise<boolean>}
+*/
 export const areProxySettingsControlledAsync = async (details_) => {
 
   const details = details_ || await getSettingsAsync();
@@ -35,7 +41,10 @@ export const areProxySettingsControlledAsync = async (details_) => {
 
 export const Messages = {
 
-  /** @param {string} niddle */
+  /**
+    @param {string} niddle
+    @returns {string}
+  */
   searchSettingsForAsUrl(niddle) {
 
     //  `niddle` may be: 'proxy'.
@@ -43,6 +52,9 @@ export const Messages = {
     return `chrome://settings/search#${localedNiddle}`;
   },
 
+  /**
+    @returns {string}
+  */
   whichExtensionAsHtml() {
 
     // Example: "Other extension controls proxy! <a...>Which?</a>"
