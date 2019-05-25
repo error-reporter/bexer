@@ -1,9 +1,10 @@
 import { installTypedErrorEventListenersOn } from '@bexer/error-event-listeners';
 import { mandatory } from '@bexer/utils';
+import * as ErrorTypes from '@bexer/commons/esm/error-types';
 /**
-  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypes
+  @typedef {GetAllValuesOf<typeof ErrorTypes>} ErrorTypesTS
   @typedef {
-    (_: ErrorTypes, __: ErrorEvent | chrome.proxy.ErrorDetails) => any
+    (_: ErrorTypesTS, __: ErrorEvent | chrome.proxy.ErrorDetails) => any
   } ErrorHandler
 */
 
@@ -13,19 +14,23 @@ import { mandatory } from '@bexer/utils';
  I hope it will make it easier to distinct methods of one API from another.
 */
 /**
-  @type {Array<ErrorHandler>}
+  @type {{ [key: string]: Array<ErrorHandler> }}
 */
-let globalTypedErrorEventHandlers = [];
+let globalTypedErrorEventHandlers = {
+  trusted: [],
+  untrusted: [],
+}
 
 /**
   @param {ErrorHandler} handler
+  @param {string} category
 */
-export const addGlobalHandler = (handler = mandatory()) => {
+export const addGlobalHandler = (handler = mandatory(), category = 'untrusted') => {
 
-  globalTypedErrorEventHandlers.push(handler);
+  globalTypedErrorEventHandlers[category].push(handler);
   const removeHandler = () => {
 
-    globalTypedErrorEventHandlers = globalTypedErrorEventHandlers.filter(
+    globalTypedErrorEventHandlers[category] = globalTypedErrorEventHandlers[category].filter(
       (otherHandler) => otherHandler !== handler,
     );
   };
@@ -33,8 +38,22 @@ export const addGlobalHandler = (handler = mandatory()) => {
 };
 
 /** @type {ErrorHandler} */
-const triggerGlobalHandlers = (...args) =>
-  globalTypedErrorEventHandlers.forEach((handler) => handler(...args));
+const triggerTrusted = (...args) =>
+  globalTypedErrorEventHandlers['trusted'].forEach((handler) => handler(...args));
+
+/** @type {ErrorHandler} */
+const triggerGlobalHandlers = (...args) => {
+
+  triggerTrusted(...args);
+  globalTypedErrorEventHandlers['untrusted'].forEach((handler) => {
+
+    try {
+      handler(...args);
+    } catch(e) {
+      triggerTrusted(ErrorTypes.EXT_ERROR, e);
+    }
+  });
+};
 
 /**
   @typedef {{

@@ -115,7 +115,7 @@ export const installErrorReporter = ({
     });
   };
 
-  const removeHandler = addGlobalHandler(anotherGlobalHandler);
+  const removeHandler = addGlobalHandler(anotherGlobalHandler, 'trusted');
   const uninstallErrorReporter = () => {
 
     uninstallErrorNotifier();
