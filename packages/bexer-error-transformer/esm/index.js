@@ -57,7 +57,7 @@ export const errorToPlainObject = (error = mandatory()) =>
   lineno?: number,
   colno?: number,
   type?: string,
-  path?: Array<Element>,
+  path?: Array<Element | undefined>,
   error?: JsonObject,
   [key: string]: any,
 }} ErrorEventLike */
@@ -89,7 +89,9 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
   );
   if (plainObj.path) {
     const pathStr = plainObj.path.map((o) => {
-
+      if (!o) {
+        return;
+      }
       let res = '';
       if (o.tagName) {
         res += `<${o.tagName.toLowerCase()}`;
