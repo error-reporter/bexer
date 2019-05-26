@@ -16,7 +16,7 @@ import { EXT_ERROR } from '@bexer/commons/esm/error-types';
 import * as Utils from '@bexer/utils';
 
 /**
-  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypes
+  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypesTS
 */
 
 const { mandatory, assert } = Utils;
@@ -29,7 +29,7 @@ export {
 };
 
 /**
-  @param {ErrorTypes} errorType
+  @param {ErrorTypesTS} errorType
   @param {ErrorEvent} errorEvent
   @returns {Promise<any>}
 */
@@ -44,20 +44,16 @@ const toPlainObjectAsync = async (
   return errorEventToPlainObject(errorEvent);
 };
 
-installGlobalHandlersOn({
-  hostWindow: window,
-  nameForDebug: 'BG',
-});
-
 /**
   @param {{
     submissionOpts: {
       handler?: Function,
       sendReportsToEmail?: string,
       sendReportsInLanguages?: Array<string>,
+      onlyTheseErrorTypes?: ErrorTypesTS[],
     },
     ifToNotifyAboutAsync?: (
-        errorType: ErrorTypes,
+        errorType: ErrorTypesTS,
         errorEvent: ErrorEvent | chrome.proxy.ErrorDetails,
       ) => boolean,
   }} _
@@ -67,6 +63,7 @@ export const installErrorReporter = ({
     handler = undefined,
     sendReportsToEmail = handler ? undefined : mandatory(),
     sendReportsInLanguages = ['en'],
+    onlyTheseErrorTypes,
   },
   ifToNotifyAboutAsync = () => true,
 }) => {
@@ -75,6 +72,12 @@ export const installErrorReporter = ({
     !(handler && sendReportsToEmail),
     'You have to pass either submission handler or sendReportsToEmail param, but never both.',
   );
+
+  installGlobalHandlersOn({
+    hostWindow: window,
+    nameForDebug: 'BG',
+    onlyTheseErrorTypes,
+  });
 
   if (handler) {
     installErrorSubmissionHandler(handler);
@@ -86,7 +89,7 @@ export const installErrorReporter = ({
   } = installErrorNotifier();
 
   /**
-    @param {ErrorTypes} errorType
+    @param {ErrorTypesTS} errorType
     @param {ErrorEvent} errorEvent
   */
   const anotherGlobalHandler = async (errorType, errorEvent) => {
@@ -101,6 +104,7 @@ export const installErrorReporter = ({
       }
     } catch(e) {
       // Notify about anohter, more important error.
+      // TODO: notify about both errors.
       errorType = EXT_ERROR;
       errorEvent = e;
     }

@@ -23,9 +23,12 @@ let globalTypedErrorEventHandlers = {
 
 /**
   @param {ErrorHandler} handler
-  @param {string} category
+  @param {string} [category]
 */
-export const addGlobalHandler = (handler = mandatory(), category = 'untrusted') => {
+export const addGlobalHandler = (
+  handler = mandatory(),
+  category = 'untrusted',
+) => {
 
   globalTypedErrorEventHandlers[category].push(handler);
   const removeHandler = () => {
@@ -59,12 +62,17 @@ const triggerGlobalHandlers = (...args) => {
   @typedef {{
     hostWindow: Window,
     nameForDebug: string,
+    onlyTheseErrorTypes?: ErrorTypesTS[],
   }} TargetWindowOpts
   @param {TargetWindowOpts} opts
   @param {(_: Function) => any} [cb]
 */
 export const installGlobalHandlersOn = (
-  { hostWindow, nameForDebug },
+  {
+    hostWindow,
+    nameForDebug,
+    onlyTheseErrorTypes,
+  },
   cb,
 ) => {
   const uninstallGlobalHandlers = installTypedErrorEventListenersOn(
@@ -72,6 +80,7 @@ export const installGlobalHandlersOn = (
       hostWindow,
       nameForDebug,
       typedErrorEventListener: triggerGlobalHandlers,
+      onlyTheseErrorTypes,
     },
     cb,
   );

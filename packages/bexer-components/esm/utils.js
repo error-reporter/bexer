@@ -86,6 +86,7 @@ const chromified = (cb = mandatory()) =>
   };
 /** @param {Function} [cb] */
 const workOrDie = (cb) =>
+
   chromified((err, ...args) => {
 
     if (err) {

@@ -87,6 +87,7 @@ const installErrorReporter = ({
       }
     } catch(e) {
       // Notify about anohter, more important error.
+      // TODO: notify about both errors.
       errorType = EXT_ERROR;
       errorEvent = e;
     }

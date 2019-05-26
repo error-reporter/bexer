@@ -85,6 +85,7 @@ export const chromified = (cb = mandatory()) =>
   };
 /** @param {Function} [cb] */
 export const workOrDie = (cb) =>
+
   chromified((err, ...args) => {
 
     if (err) {
