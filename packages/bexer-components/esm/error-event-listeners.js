@@ -59,6 +59,7 @@ const installTypedErrorEventListenersOn = ({
   onlyTheseErrorTypes = [EXT_ERROR, PAC_ERROR],
 }, cb) => {
 
+  console.log('ONLY', onlyTheseErrorTypes);
   const ifInBg = hostWindow === window;
   if (ifInBg) {
     assert(

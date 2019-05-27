@@ -5,17 +5,19 @@ import { installErrorNotifier } from './error-notifier.js';
 import { installErrorSubmissionHandler, openErrorReporter, makeReport } from './error-reporter.js';
 import { errorEventToPlainObject } from './error-transformer.js';
 import { EXT_ERROR } from './error-types.js';
+import * as ErrorTypes from './error-types.js';
+export { ErrorTypes };
 import * as Utils from './utils.js';
 export { Utils };
 
 /**
-  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypes
+  @typedef {GetAllValuesOf<typeof ErrorTypes>} ErrorTypesTS
 */
 
 const { mandatory, assert } = Utils;
 
 /**
-  @param {ErrorTypes} errorType
+  @param {ErrorTypesTS} errorType
   @param {ErrorEvent} errorEvent
   @returns {Promise<any>}
 */
@@ -30,20 +32,16 @@ const toPlainObjectAsync = async (
   return errorEventToPlainObject(errorEvent);
 };
 
-installGlobalHandlersOn({
-  hostWindow: window,
-  nameForDebug: 'BG',
-});
-
 /**
   @param {{
     submissionOpts: {
       handler?: Function,
       sendReportsToEmail?: string,
       sendReportsInLanguages?: Array<string>,
+      onlyTheseErrorTypes?: ErrorTypesTS[],
     },
     ifToNotifyAboutAsync?: (
-        errorType: ErrorTypes,
+        errorType: ErrorTypesTS,
         errorEvent: ErrorEvent | chrome.proxy.ErrorDetails,
       ) => boolean,
   }} _
@@ -53,6 +51,7 @@ const installErrorReporter = ({
     handler = undefined,
     sendReportsToEmail = handler ? undefined : mandatory(),
     sendReportsInLanguages = ['en'],
+    onlyTheseErrorTypes,
   },
   ifToNotifyAboutAsync = () => true,
 }) => {
@@ -61,6 +60,12 @@ const installErrorReporter = ({
     !(handler && sendReportsToEmail),
     'You have to pass either submission handler or sendReportsToEmail param, but never both.',
   );
+
+  const detachGlobalHandlers = installGlobalHandlersOn({
+    hostWindow: window,
+    nameForDebug: 'BG',
+    onlyTheseErrorTypes,
+  });
 
   if (handler) {
     installErrorSubmissionHandler(handler);
@@ -72,7 +77,7 @@ const installErrorReporter = ({
   } = installErrorNotifier();
 
   /**
-    @param {ErrorTypes} errorType
+    @param {ErrorTypesTS} errorType
     @param {ErrorEvent} errorEvent
   */
   const anotherGlobalHandler = async (errorType, errorEvent) => {
@@ -113,6 +118,7 @@ const installErrorReporter = ({
 
     uninstallErrorNotifier();
     removeHandler();
+    detachGlobalHandlers();
   };
   return uninstallErrorReporter;
 };

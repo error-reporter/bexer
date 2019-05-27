@@ -12,16 +12,17 @@ import {
 import {
   errorEventToPlainObject,
 } from '@bexer/error-transformer';
-import { EXT_ERROR } from '@bexer/commons/esm/error-types';
+import * as ErrorTypes from '@bexer/commons/esm/error-types';
 import * as Utils from '@bexer/utils';
 
 /**
-  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypesTS
+  @typedef {GetAllValuesOf<typeof ErrorTypes>} ErrorTypesTS
 */
 
 const { mandatory, assert } = Utils;
 
 export {
+  ErrorTypes,
   Utils,
   installGlobalHandlersOn,
   installGlobalHandlersOnAsync,
@@ -38,7 +39,7 @@ const toPlainObjectAsync = async (
   errorEvent = mandatory(),
 ) => {
 
-  if (errorType !== EXT_ERROR) {
+  if (errorType !== ErrorTypes.EXT_ERROR) {
     return errorEvent;
   }
   return errorEventToPlainObject(errorEvent);
@@ -73,7 +74,7 @@ export const installErrorReporter = ({
     'You have to pass either submission handler or sendReportsToEmail param, but never both.',
   );
 
-  installGlobalHandlersOn({
+  const detachGlobalHandlers = installGlobalHandlersOn({
     hostWindow: window,
     nameForDebug: 'BG',
     onlyTheseErrorTypes,
@@ -105,7 +106,7 @@ export const installErrorReporter = ({
     } catch(e) {
       // Notify about anohter, more important error.
       // TODO: notify about both errors.
-      errorType = EXT_ERROR;
+      errorType = ErrorTypes.EXT_ERROR;
       errorEvent = e;
     }
     notifyAboutError({
@@ -130,6 +131,7 @@ export const installErrorReporter = ({
 
     uninstallErrorNotifier();
     removeHandler();
+    detachGlobalHandlers();
   };
   return uninstallErrorReporter;
 };
