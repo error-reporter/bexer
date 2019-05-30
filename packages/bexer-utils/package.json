@@ -1,6 +1,6 @@
 {
   "name": "@bexer/utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "module": "./esm/index.js",
   "main": "./esm/index.js",
   "keywords": [

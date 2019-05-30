@@ -1,6 +1,6 @@
 {
   "name": "@bexer/error-notifier",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "module": "./esm/index.js",
   "main": "./esm/index.js",
   "keywords": [
@@ -9,8 +9,8 @@
     "notifications"
   ],
   "dependencies": {
-    "@bexer/commons": "^0.0.2",
-    "@bexer/utils": "^0.0.4"
+    "@bexer/commons": "^0.0.3",
+    "@bexer/utils": "^0.0.5"
   },
   "publishConfig": {
     "access": "public"

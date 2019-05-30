@@ -1,6 +1,6 @@
 {
   "name": "@bexer/error-transformer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "module": "./esm/index.js",
   "main": "./esm/index.js",
   "keywords": [
@@ -9,7 +9,7 @@
     "serialization"
   ],
   "dependencies": {
-    "@bexer/utils": "^0.0.4"
+    "@bexer/utils": "^0.0.5"
   },
   "publishConfig": {
     "access": "public"
