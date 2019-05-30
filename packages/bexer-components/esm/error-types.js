@@ -1,4 +1,4 @@
-// Generated from package @bexer/commons v0.0.1
+// Generated from package @bexer/commons v0.0.2
 const EXT_ERROR = 'ext-error';
 const PAC_ERROR = 'pac-error';
 

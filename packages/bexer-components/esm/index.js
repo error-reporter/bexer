@@ -1,4 +1,4 @@
-// Generated from package @bexer/index v0.0.3
+// Generated from package @bexer/index v0.0.4
 import { installGlobalHandlersOn, addGlobalHandler } from './global-error-event-handlers.js';
 export { addGlobalHandler, installGlobalHandlersOn, installGlobalHandlersOnAsync } from './global-error-event-handlers.js';
 import { installErrorNotifier } from './error-notifier.js';

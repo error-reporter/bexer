@@ -1,4 +1,4 @@
-// Generated from package @bexer/utils v0.0.3
+// Generated from package @bexer/utils v0.0.4
 /*
 
 # Purpose
