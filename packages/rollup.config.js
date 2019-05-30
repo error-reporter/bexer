@@ -104,4 +104,4 @@ const getTasks = (format) => PKG.module
       plugins,
   }));
 
-export default ['esm', 'iife'].map(getTasks).flat();
+export default [].concat(...['esm', 'iife'].map(getTasks));
