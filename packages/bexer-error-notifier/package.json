@@ -1,6 +1,6 @@
 {
   "name": "@bexer/error-notifier",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "module": "./esm/index.js",
   "main": "./esm/index.js",
   "keywords": [
