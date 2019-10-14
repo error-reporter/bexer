@@ -57,7 +57,7 @@ export const errorToPlainObject = (error = mandatory()) =>
   lineno?: number,
   colno?: number,
   type?: string,
-  path?: Array<Element | undefined>,
+  path?: Array<Element | undefined> | string,
   error?: JsonObject,
   [key: string]: any,
 }} ErrorEventLike */
@@ -87,7 +87,7 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
     },
     {}
   );
-  if (plainObj.path) {
+  if (plainObj.path && typeof plainObj.path !== 'string') {
     const pathStr = plainObj.path.map((o) => {
       if (!o) {
         return;

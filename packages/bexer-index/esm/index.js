@@ -91,14 +91,14 @@ export const installErrorReporter = ({
 
   /**
     @param {ErrorTypesTS} errorType
-    @param {ErrorEvent} errorEvent
+    @param {ErrorEvent | Error} errorEventLike
   */
-  const anotherGlobalHandler = async (errorType, errorEvent) => {
+  const anotherGlobalHandler = async (errorType, errorEventLike) => {
 
     try {
       const ifToNotify = await ifToNotifyAboutAsync(
         errorType,
-        errorEvent,
+        errorEventLike,
       );
       if (!ifToNotify) {
         return;
@@ -107,20 +107,21 @@ export const installErrorReporter = ({
       // Notify about anohter, more important error.
       // TODO: notify about both errors.
       errorType = ErrorTypes.EXT_ERROR;
-      errorEvent = e;
+      errorEventLike = e;
     }
     notifyAboutError({
       errorType,
-      errorEventLike: errorEvent,
+      errorEventLike,
       clickHandler: async () =>
         openErrorReporter({
           sendReportsToEmail,
           sendReportsInLanguages,
-          errorTitle: errorEvent.message || errorEvent.error,
+          errorTitle: errorEventLike.message
+            || errorEventLike.error && (errorEventLike.error.message || errorEventLike.error),
           report: makeReport({
             errorType,
             serializablePayload:
-              await toPlainObjectAsync(errorType, errorEvent),
+              await toPlainObjectAsync(errorType, errorEventLike),
           }),
         }),
     });
@@ -136,10 +137,12 @@ export const installErrorReporter = ({
   return {
     uninstallErrorReporter,
     /**
-      @param {ErrorEvent} errorEvent
+      @param {ErrorEvent | Error} errorEventLike
       @param {ErrorTypesTS} errorType
     */
-    notifyAbout: (errorEvent, errorType = ErrorTypes.EXT_ERROR) =>
-      anotherGlobalHandler(errorType, errorEvent),
+    notifyAbout: (errorEventLike, errorType = ErrorTypes.EXT_ERROR) => {
+
+      anotherGlobalHandler(errorType, errorEventLike);
+    },
   };
 };

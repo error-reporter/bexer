@@ -142,7 +142,7 @@ const installErrorNotifier = ({
     const errMessage = (
       errorType === PAC_ERROR
         ? errorEventLike.error
-        : errorEventLike.message
+        : errorEventLike.message || (errorEventLike.error && errorEventLike.error.message)
     ) || errorEventLike.toString();
     /** @type {string | undefined} */
     const iconUrl = await loadIconAsBlobUrlAsync(
