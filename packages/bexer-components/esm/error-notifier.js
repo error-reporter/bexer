@@ -1,4 +1,4 @@
-// Generated from package @bexer/error-notifier v0.0.4
+// Generated from package @bexer/error-notifier v0.0.5
 import { timeouted, mandatory, assert } from './utils.js';
 import * as ErrorTypes from './error-types.js';
 import { EXT_ERROR, PAC_ERROR } from './error-types.js';

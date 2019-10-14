@@ -1,4 +1,4 @@
-// Generated from package @bexer/global-error-event-handlers v0.0.4
+// Generated from package @bexer/global-error-event-handlers v0.0.5
 import { installTypedErrorEventListenersOn } from './error-event-listeners.js';
 import { mandatory } from './utils.js';
 import { EXT_ERROR } from './error-types.js';

@@ -1,4 +1,4 @@
-// Generated from package @bexer/error-event-listeners v0.0.4
+// Generated from package @bexer/error-event-listeners v0.0.5
 import Debug from './private/debug.js';
 import { workOrDie, mandatory, assert, timeouted } from './utils.js';
 import { EXT_ERROR, PAC_ERROR } from './error-types.js';

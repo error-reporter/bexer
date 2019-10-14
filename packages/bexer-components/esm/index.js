@@ -1,4 +1,4 @@
-// Generated from package @bexer/index v0.0.4
+// Generated from package @bexer/index v0.0.5
 import { installGlobalHandlersOn, addGlobalHandler } from './global-error-event-handlers.js';
 export { addGlobalHandler, installGlobalHandlersOn, installGlobalHandlersOnAsync } from './global-error-event-handlers.js';
 import { installErrorNotifier } from './error-notifier.js';
@@ -120,7 +120,15 @@ const installErrorReporter = ({
     removeHandler();
     detachGlobalHandlers();
   };
-  return uninstallErrorReporter;
+  return {
+    uninstallErrorReporter,
+    /**
+      @param {ErrorEvent} errorEvent
+      @param {ErrorTypesTS} errorType
+    */
+    notifyAbout: (errorEvent, errorType = EXT_ERROR) =>
+      anotherGlobalHandler(errorType, errorEvent),
+  };
 };
 
 export { installErrorReporter };

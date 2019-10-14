@@ -133,5 +133,13 @@ export const installErrorReporter = ({
     removeHandler();
     detachGlobalHandlers();
   };
-  return uninstallErrorReporter;
+  return {
+    uninstallErrorReporter,
+    /**
+      @param {ErrorEvent} errorEvent
+      @param {ErrorTypesTS} errorType
+    */
+    notifyAbout: (errorEvent, errorType = ErrorTypes.EXT_ERROR) =>
+      anotherGlobalHandler(errorType, errorEvent),
+  };
 };
