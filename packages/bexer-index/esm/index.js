@@ -42,12 +42,10 @@ const toPlainObjectAsync = async (
 };
 
 /**
-  @typedef {Function | undefined} FunctionOrUndefined
-  @typedef {string | undefined} stringOrUndefined
   @param {{
     submissionOpts: {
-      handler: FunctionOrUndefined,
-      sendReportsToEmail: stringOrUndefined,
+      handler?: Function | undefined,
+      sendReportsToEmail?: string | undefined,
       sendReportsInLanguages?: Array<string>,
       onlyTheseErrorTypes?: ErrorTypesTS[],
     },
