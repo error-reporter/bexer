@@ -15,10 +15,6 @@ import {
 import * as ErrorTypes from '@bexer/commons/esm/error-types';
 import * as Utils from '@bexer/utils';
 
-/**
-  @typedef {GetAllValuesOf<typeof ErrorTypes>} ErrorTypesTS
-*/
-
 const { mandatory, assert } = Utils;
 
 export {

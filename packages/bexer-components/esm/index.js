@@ -10,10 +10,6 @@ export { ErrorTypes };
 import * as Utils from './utils.js';
 export { Utils };
 
-/**
-  @typedef {GetAllValuesOf<typeof ErrorTypes>} ErrorTypesTS
-*/
-
 const { mandatory, assert } = Utils;
 
 /**

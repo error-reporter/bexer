@@ -21,7 +21,6 @@ const generateNameForDebug = (hostWindow) => {
 };
 
 /**
-  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypesTS
   @param {{
     hostWindow: Window,
     typedErrorEventListener: (
