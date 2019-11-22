@@ -1,4 +1,4 @@
-// Generated from package @bexer/index v0.0.6
+// Generated from package @bexer/index v0.0.7
 import { installGlobalHandlersOn, addGlobalHandler } from './global-error-event-handlers.js';
 export { addGlobalHandler, installGlobalHandlersOn, installGlobalHandlersOnAsync } from './global-error-event-handlers.js';
 import { installErrorNotifier } from './error-notifier.js';
@@ -18,38 +18,40 @@ const { mandatory, assert } = Utils;
 
 /**
   @param {ErrorTypesTS} errorType
-  @param {ErrorEvent} errorEvent
+  @param {ErrorEventLike} errorEventLike
   @returns {Promise<any>}
 */
 const toPlainObjectAsync = async (
   errorType = mandatory(),
-  errorEvent = mandatory(),
+  errorEventLike = mandatory(),
 ) => {
 
   if (errorType !== EXT_ERROR) {
-    return errorEvent;
+    return errorEventLike;
   }
-  return errorEventToPlainObject(errorEvent);
+  return errorEventToPlainObject(errorEventLike);
 };
 
 /**
+  @typedef {Function | undefined} FunctionOrUndefined
+  @typedef {string | undefined} stringOrUndefined
   @param {{
     submissionOpts: {
-      handler?: Function,
-      sendReportsToEmail?: string,
+      handler: FunctionOrUndefined,
+      sendReportsToEmail: stringOrUndefined,
       sendReportsInLanguages?: Array<string>,
       onlyTheseErrorTypes?: ErrorTypesTS[],
     },
     ifToNotifyAboutAsync?: (
         errorType: ErrorTypesTS,
-        errorEvent: ErrorEvent | chrome.proxy.ErrorDetails,
+        errorEvent: ErrorEventLike,
       ) => boolean,
   }} _
 */
 const installErrorReporter = ({
   submissionOpts: {
-    handler = undefined,
-    sendReportsToEmail = handler ? undefined : mandatory(),
+    handler,
+    sendReportsToEmail = handler || mandatory(),
     sendReportsInLanguages = ['en'],
     onlyTheseErrorTypes,
   },
@@ -78,7 +80,7 @@ const installErrorReporter = ({
 
   /**
     @param {ErrorTypesTS} errorType
-    @param {ErrorEvent | Error} errorEventLike
+    @param {ErrorEventLike} errorEventLike
   */
   const anotherGlobalHandler = async (errorType, errorEventLike) => {
 
@@ -103,8 +105,7 @@ const installErrorReporter = ({
         openErrorReporter({
           sendReportsToEmail,
           sendReportsInLanguages,
-          errorTitle: errorEventLike.message
-            || errorEventLike.error && (errorEventLike.error.message || errorEventLike.error),
+          errorTitle: errorEventLike.error && (errorEventLike.error.message || errorEventLike.error),
           report: makeReport({
             errorType,
             serializablePayload:
@@ -124,7 +125,7 @@ const installErrorReporter = ({
   return {
     uninstallErrorReporter,
     /**
-      @param {ErrorEvent | Error} errorEventLike
+      @param {ErrorEventLike} errorEventLike
       @param {ErrorTypesTS} errorType
     */
     notifyAbout: (errorEventLike, errorType = EXT_ERROR) => {

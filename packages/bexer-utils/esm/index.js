@@ -7,7 +7,7 @@
 3. Add utils for safer coding: `mandatory`, `throwIfError`.
 
 */
-/* @returns {never} **/
+/** @returns {never} */
 export const mandatory = () => {
 
   throw new TypeError(

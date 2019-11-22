@@ -60,12 +60,12 @@ export const errorToPlainObject = (error = mandatory()) =>
   path?: Array<Element | undefined> | string,
   error?: JsonObject,
   [key: string]: any,
-}} ErrorEventLike */
+}} PlainErrorEventLike */
 
-/** @param {AnyStringToValuesOf<ErrorEvent>} errorEvent */
+/** @param {ErrorEventLike} errorEvent */
 export const errorEventToPlainObject = (errorEvent = mandatory()) => {
 
-  /** @type {ErrorEventLike} */
+  /** @type {PlainErrorEventLike} */
   const plainObj = [
     'message',
     'filename',
@@ -75,17 +75,17 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
     'path',
   ].reduce(
     /**
-      @param {JsonObject} acc
+      @param {PlainErrorEventLike} acc
       @param {string} prop
-      @returns {ErrorEventLike}
+      @returns {PlainErrorEventLike}
     */
     (acc, prop) => {
 
-      acc[prop] = (/** @type any */errorEvent[prop]);
+      acc[prop] = (/** @type {PlainErrorEventLike} */(errorEvent))[prop];
       return acc;
 
     },
-    {}
+    {},
   );
   if (plainObj.path && typeof plainObj.path !== 'string') {
     const pathStr = plainObj.path.map((o) => {

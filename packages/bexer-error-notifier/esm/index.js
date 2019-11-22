@@ -113,7 +113,7 @@ export const installErrorNotifier = ({
   /**
     @typedef {{
       clickHandler: Function,
-      errorEventLike: ErrorEvent,
+      errorEventLike: ErrorEventLike,
       errorType?: GetAllValuesOf<typeof ErrorTypes>,
       notyTitle?: string,
       context?: string,
@@ -140,7 +140,7 @@ export const installErrorNotifier = ({
     const errMessage = (
       errorType === ErrorTypes.PAC_ERROR
         ? errorEventLike.error
-        : errorEventLike.message || (errorEventLike.error && errorEventLike.error.message)
+        : errorEventLike.error && errorEventLike.error.message
     ) || errorEventLike.toString();
     /** @type {string | undefined} */
     const iconUrl = await loadIconAsBlobUrlAsync(

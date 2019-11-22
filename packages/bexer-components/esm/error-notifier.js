@@ -1,4 +1,4 @@
-// Generated from package @bexer/error-notifier v0.0.5
+// Generated from package @bexer/error-notifier v0.0.6
 import { timeouted, mandatory, assert } from './utils.js';
 import * as ErrorTypes from './error-types.js';
 import { EXT_ERROR, PAC_ERROR } from './error-types.js';
@@ -115,7 +115,7 @@ const installErrorNotifier = ({
   /**
     @typedef {{
       clickHandler: Function,
-      errorEventLike: ErrorEvent,
+      errorEventLike: ErrorEventLike,
       errorType?: GetAllValuesOf<typeof ErrorTypes>,
       notyTitle?: string,
       context?: string,
@@ -142,7 +142,7 @@ const installErrorNotifier = ({
     const errMessage = (
       errorType === PAC_ERROR
         ? errorEventLike.error
-        : errorEventLike.message || (errorEventLike.error && errorEventLike.error.message)
+        : errorEventLike.error && errorEventLike.error.message
     ) || errorEventLike.toString();
     /** @type {string | undefined} */
     const iconUrl = await loadIconAsBlobUrlAsync(
