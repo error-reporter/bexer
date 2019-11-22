@@ -4,7 +4,7 @@ import { mandatory } from './utils.js';
 import { EXT_ERROR } from './error-types.js';
 
 /**
-  @typedef {GetAllValuesOf<typeof ErrorTypes>} ErrorTypesTS
+  @typedef {GetAllValuesOf<import('@bexer/commons/esm/error-types')>} ErrorTypesTS
   @typedef {
     (_: ErrorTypesTS, __: ErrorEvent | chrome.proxy.ErrorDetails) => any
   } ErrorHandler

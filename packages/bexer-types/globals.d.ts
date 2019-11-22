@@ -1,5 +1,7 @@
+type DebugType = (...args: any[]) => (...args: any[]) => void;
+
 interface Window {
-  debug: Function,
+  debug: DebugType,
   Bexer: any,
 }
 

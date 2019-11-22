@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "./@types",
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowJs": true,
@@ -18,7 +16,6 @@
     "./packages/**/*"
   ],
   "exclude": [
-    "./packages/bexer-components/**/*",
     "./packages/rollup.config.js",
     "./packages/**/iife/*"
   ]

@@ -63,6 +63,7 @@ const output = (outputFilePath, format = 'esm') => {
     format,
     paths: pkgNameToFilename,
     banner: `// Generated from package ${PKG.name} v${PKG.version}`,
+    // treeshake: false,
   };
   outputFilePath = outputFilePath.replace(/^(?:\.\/)?esm/, './');
   const outs = [

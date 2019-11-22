@@ -17,5 +17,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@bexer/commons": "0.0.3"
   }
 }
