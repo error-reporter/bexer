@@ -5,8 +5,10 @@ console.log('Extension started.');
 console.log('Bexer is:', Bexer);
 
 Bexer.installErrorReporter({
-  toEmail: 'homerjsimpson@example.com',
-  sendReportsInLanguages: ['en', 'ru'],
+  submissionOpts: {
+    sendReportsToEmail: 'homerjsimpson@example.com',
+    sendReportsInLanguages: ['en', 'ru'],
+  },
 });
 
 window.bar = function foo() {

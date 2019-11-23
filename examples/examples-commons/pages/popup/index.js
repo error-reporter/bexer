@@ -12,5 +12,5 @@ chrome.runtime.getBackgroundPage(async (bgWindow) => {
 
   };
 
-  throw new TypeError('FROM POPUP!');
+  //throw new TypeError('FROM POPUP!');
 });

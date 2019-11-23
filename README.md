@@ -1,6 +1,6 @@
 # Bexer
 
-![Bexer screenshot](./bexer-screenshot-double.png)
+![Bexer screenshot](./bexer-screenshot.png)
 
 [![Build Status](https://travis-ci.org/error-reporter/bexer.svg?branch=master)](https://travis-ci.org/error-reporter/bexer)
 
