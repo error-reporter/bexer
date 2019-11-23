@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "noEmit": true,
+
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "./packages/bexer-types",
+
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowJs": true,
@@ -17,6 +22,7 @@
   ],
   "exclude": [
     "./packages/rollup.config.js",
-    "./packages/**/iife/*"
+    "./packages/**/iife/*",
+    "./packages/bexer-types/bexer-*"
   ]
 }

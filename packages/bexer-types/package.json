@@ -12,6 +12,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@bexer/commons": "0.0.3"
+    "@bexer/commons": "0.0.3",
+    "@bexer/index": "0.0.7"
   }
 }

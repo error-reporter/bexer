@@ -2,7 +2,7 @@ type DebugType = (...args: any[]) => (...args: any[]) => void;
 
 interface Window {
   debug: DebugType,
-  Bexer: any,
+  Bexer: typeof import('@bexer/index/esm/index'),
 }
 
 type GetAllValuesOf<T> = T[keyof T];
