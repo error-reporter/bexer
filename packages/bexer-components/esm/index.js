@@ -45,7 +45,7 @@ const toPlainObjectAsync = async (
 const installErrorReporter = ({
   submissionOpts: {
     handler,
-    sendReportsToEmail = handler ? undefined : mandatory(),
+    sendReportsToEmail,
     sendReportsInLanguages = ['en'],
     onlyTheseErrorTypes,
   },
