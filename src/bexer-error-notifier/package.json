@@ -1,0 +1,19 @@
+{
+  "name": "@bexer/error-notifier",
+  "version": "0.0.6",
+  "module": "./esm/index.js",
+  "main": "./esm/index.js",
+  "keywords": [
+    "browser-extensions",
+    "error",
+    "notifications"
+  ],
+  "dependencies": {
+    "@bexer/commons": "^0.0.3",
+    "@bexer/utils": "^0.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "bcd8bdb0685d1bd765be2fad37628ff023be4140"
+}
