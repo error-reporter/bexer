@@ -4,7 +4,7 @@
     "noEmit": false,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "./dist",
+    "declarationDir": "./generated-for-dist",
 
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -18,11 +18,10 @@
     "chrome"
   ],
   "include": [
-    "./packages/**/*"
+    "./generated-for-type-checks/**/*"
   ],
   "exclude": [
-    "./packages/rollup.config.js",
-    "./packages/**/iife/*",
-    "./packages/bexer-types/bexer-*"
+    "./src",
+    "./generated-for-type-checks/**/iife/*"
   ]
 }

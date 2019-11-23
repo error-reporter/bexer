@@ -1,6 +1,6 @@
 {
   "packages": [
-    "packages/*",
+    "generated-for-dist/*",
     "examples/*"
   ],
   "version": "independent",

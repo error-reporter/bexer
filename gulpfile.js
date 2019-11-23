@@ -24,7 +24,6 @@ function copyForTypeChecks() {
     .pipe(dest('./generated-for-type-checks/.'));
 }
 
-
 function build() {
   const folders = getFolders('./src');
   if (folders.length === 0) return; // nothing to do!
@@ -35,5 +34,14 @@ function build() {
   );
 }
 
+function copyForDist() {
+  return src('./generated-for-type-checks/**')
+    .pipe(dest('./generated-for-dist/.'));
+}
+
+function generateDeclarations() {
+  return new Promise((resolve) => exec('npx tsc', resolve));
+}
+
 exports.build = build;
-exports.default = series(clean, copyForTypeChecks, build);
+exports.default = series(clean, copyForTypeChecks, build, copyForDist, generateDeclarations);
