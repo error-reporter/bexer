@@ -1,0 +1,39 @@
+{
+
+  "manifest_version": 2,
+
+  "name": "Bexer example",
+  "description": "Blow up internet!",
+  "version": "0.0.0.1",
+  "author": "homerjsimpson@example.com",
+  "homepage_url": "https://cool-extension.example.com",
+
+  "permissions": [
+    "notifications"
+  ],
+
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "./js/vendor/bexer/index.js",
+      "./js/bg/index.js"
+    ]
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://github.com/error-reporter/bexer/*"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "./js/inject/bexer-utils.js",
+        "./js/inject/bexer-error-transformer.js",
+        "./js/inject/inject.js"
+      ]
+    }
+  ],
+
+  "browser_action": {}
+
+}

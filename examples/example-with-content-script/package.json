@@ -1,0 +1,20 @@
+{
+  "name": "example-content-script",
+  "private": true,
+  "version": "0.0.3",
+  "scripts": {
+    "clean": "shx rm -rf ./dist && mkdir -p ./dist/js",
+    "copy-src": "shx cp -r ./src/* ./dist/.",
+    "copy-pages": "shx mkdir ./dist/pages && shx cp -r ../examples-commons/pages/popup-esm ./dist/pages/popup",
+    "copy-bexer": "rollup -c",
+    "build": "npm run clean && npm run copy-src && npm run copy-pages && npm run copy-bexer",
+    "start": "npm run build"
+  },
+  "devDependencies": {
+    "rollup": "2.1.0",
+    "shx": "^0.3.2"
+  },
+  "dependencies": {
+    "@bexer/components": "0.0.12"
+  }
+}
