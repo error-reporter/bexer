@@ -3,7 +3,7 @@
     "./examples/*",
     "./generated-for-dist/*"
   ],
-  "version": "0.0.16",
+  "version": "0.0.17",
   "command": {
     "version": {
       "conventionalCommits": true

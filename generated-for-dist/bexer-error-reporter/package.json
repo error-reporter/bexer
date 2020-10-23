@@ -1,6 +1,6 @@
 {
   "name": "@bexer/error-reporter",
-  "version": "0.0.5",
+  "version": "0.0.17",
   "module": "./esm/index.js",
   "main": "./esm/index.js",
   "keywords": [
@@ -9,10 +9,10 @@
     "reporter"
   ],
   "dependencies": {
-    "@bexer/utils": "^0.0.5"
+    "@bexer/utils": "^0.0.17"
   },
   "devDependencies": {
-    "@bexer/commons": "^0.0.3"
+    "@bexer/commons": "^0.0.17"
   },
   "publishConfig": {
     "access": "public"

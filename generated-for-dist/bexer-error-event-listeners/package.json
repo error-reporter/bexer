@@ -1,6 +1,6 @@
 {
   "name": "@bexer/error-event-listeners",
-  "version": "0.0.5",
+  "version": "0.0.17",
   "module": "./esm/index.js",
   "main": "./esm/index.js",
   "keywords": [

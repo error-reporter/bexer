@@ -1,6 +1,6 @@
 {
   "name": "@bexer/types",
-  "version": "0.0.1",
+  "version": "0.0.17",
   "types": "./globals.d.ts",
   "keywords": [
     "browser-extensions",
