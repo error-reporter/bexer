@@ -102,6 +102,8 @@ this.BexerComponents.globalErrorEventHandlers = (function (exports, errorEventLi
   exports.installGlobalHandlersOn = installGlobalHandlersOn;
   exports.installGlobalHandlersOnAsync = installGlobalHandlersOnAsync;
 
+  Object.defineProperty(exports, '__esModule', { value: true });
+
   return exports;
 
 }({}, BexerComponents.errorEventListeners, BexerComponents.utils, BexerComponents.errorTypes));

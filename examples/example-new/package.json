@@ -1,7 +1,7 @@
 {
   "name": "example-new",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.14",
   "scripts": {
     "clean": "shx rm -rf ./dist && mkdir ./dist",
     "copy-src": "shx cp -r ./src/* ./dist/. && shx cp node_modules/source-map/lib/mappings.wasm ./dist/.",

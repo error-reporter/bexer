@@ -3,6 +3,28 @@ this['BexerComponents.BexerComponents'] = this['BexerComponents.BexerComponents'
 this.BexerComponents.errorNotifier = (function (exports, utils, ErrorTypes) {
   'use strict';
 
+  function _interopNamespace(e) {
+    if (e && e.__esModule) return e;
+    var n = Object.create(null);
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        if (k !== 'default') {
+          var d = Object.getOwnPropertyDescriptor(e, k);
+          Object.defineProperty(n, k, d.get ? d : {
+            enumerable: true,
+            get: function () {
+              return e[k];
+            }
+          });
+        }
+      });
+    }
+    n['default'] = e;
+    return Object.freeze(n);
+  }
+
+  var ErrorTypes__namespace = /*#__PURE__*/_interopNamespace(ErrorTypes);
+
   const manifest = chrome.runtime.getManifest();
 
   /**
@@ -133,7 +155,7 @@ this.BexerComponents.errorNotifier = (function (exports, utils, ErrorTypes) {
       ifSticky = true,
     }) => {
 
-      const allowedTypes = Object.values(ErrorTypes);
+      const allowedTypes = Object.values(ErrorTypes__namespace);
       utils.assert(
         allowedTypes.includes(errorType),
         `Type ${errorType} is among allowed types which are ${allowedTypes}.`,
@@ -196,6 +218,8 @@ this.BexerComponents.errorNotifier = (function (exports, utils, ErrorTypes) {
   };
 
   exports.installErrorNotifier = installErrorNotifier;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
   return exports;
 

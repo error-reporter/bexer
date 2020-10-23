@@ -1,9 +1,9 @@
 {
   "packages": [
-    "generated-for-dist/*",
-    "examples/*"
+    "examples/*",
+    "generated-for-dist/*"
   ],
-  "version": "0.0.13",
+  "version": "0.0.14",
   "command": {
     "version": {
       "conventionalCommits": true

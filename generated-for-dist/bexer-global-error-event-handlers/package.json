@@ -1,0 +1,22 @@
+{
+  "name": "@bexer/global-error-event-handlers",
+  "version": "0.0.5",
+  "module": "./esm/index.js",
+  "main": "./esm/index.js",
+  "keywords": [
+    "browser-extensions",
+    "error",
+    "event"
+  ],
+  "dependencies": {
+    "@bexer/error-event-listeners": "^0.0.5",
+    "@bexer/utils": "^0.0.5"
+  },
+  "devDependencies": {
+    "@bexer/commons": "^0.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "bcd8bdb0685d1bd765be2fad37628ff023be4140"
+}

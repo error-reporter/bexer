@@ -119,6 +119,8 @@ this.BexerComponents.errorReporter = (function (exports, utils) {
   exports.makeReport = makeReport;
   exports.openErrorReporter = openErrorReporter;
 
+  Object.defineProperty(exports, '__esModule', { value: true });
+
   return exports;
 
 }({}, BexerComponents.utils));

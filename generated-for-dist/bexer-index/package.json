@@ -1,0 +1,23 @@
+{
+  "name": "@bexer/index",
+  "version": "0.0.7",
+  "module": "./esm/index.js",
+  "main": "./esm/index.js",
+  "keywords": [
+    "browser-extensions",
+    "error",
+    "reporter"
+  ],
+  "dependencies": {
+    "@bexer/commons": "^0.0.3",
+    "@bexer/error-notifier": "^0.0.6",
+    "@bexer/error-reporter": "^0.0.5",
+    "@bexer/error-transformer": "^0.0.6",
+    "@bexer/global-error-event-handlers": "^0.0.5",
+    "@bexer/utils": "^0.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "bcd8bdb0685d1bd765be2fad37628ff023be4140"
+}

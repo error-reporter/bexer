@@ -3,7 +3,9 @@ this['BexerComponents.BexerComponents'] = this['BexerComponents.BexerComponents'
 this.BexerComponents.errorEventListeners = (function (exports, Debug, utils, ErrorTypes) {
   'use strict';
 
-  Debug = Debug && Debug.hasOwnProperty('default') ? Debug['default'] : Debug;
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+  var Debug__default = /*#__PURE__*/_interopDefaultLegacy(Debug);
 
   const getSettingsAsync = () =>
     new Promise((resolve) =>
@@ -23,7 +25,7 @@ this.BexerComponents.errorEventListeners = (function (exports, Debug, utils, Err
 
   };
 
-  const debug = Debug('bexer:catcher');
+  const debug = Debug__default['default']('bexer:catcher');
 
   const bgName = 'BG';
   /**
@@ -145,6 +147,8 @@ this.BexerComponents.errorEventListeners = (function (exports, Debug, utils, Err
   };
 
   exports.installTypedErrorEventListenersOn = installTypedErrorEventListenersOn;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
   return exports;
 

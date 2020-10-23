@@ -3,7 +3,30 @@ this['BexerComponents.BexerComponents'] = this['BexerComponents.BexerComponents'
 this.BexerComponents.index = (function (exports, globalErrorEventHandlers, errorNotifier, errorReporter, errorTransformer, ErrorTypes, Utils) {
   'use strict';
 
-  const { mandatory, assert } = Utils;
+  function _interopNamespace(e) {
+    if (e && e.__esModule) return e;
+    var n = Object.create(null);
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        if (k !== 'default') {
+          var d = Object.getOwnPropertyDescriptor(e, k);
+          Object.defineProperty(n, k, d.get ? d : {
+            enumerable: true,
+            get: function () {
+              return e[k];
+            }
+          });
+        }
+      });
+    }
+    n['default'] = e;
+    return Object.freeze(n);
+  }
+
+  var ErrorTypes__namespace = /*#__PURE__*/_interopNamespace(ErrorTypes);
+  var Utils__namespace = /*#__PURE__*/_interopNamespace(Utils);
+
+  const { mandatory, assert } = Utils__namespace;
 
   /**
     @param {ErrorTypesTS} errorType
@@ -140,9 +163,11 @@ this.BexerComponents.index = (function (exports, globalErrorEventHandlers, error
       return globalErrorEventHandlers.installGlobalHandlersOnAsync;
     }
   });
-  exports.ErrorTypes = ErrorTypes;
-  exports.Utils = Utils;
+  exports.ErrorTypes = ErrorTypes__namespace;
+  exports.Utils = Utils__namespace;
   exports.installErrorReporter = installErrorReporter;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
   return exports;
 

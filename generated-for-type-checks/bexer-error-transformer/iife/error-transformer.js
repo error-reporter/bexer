@@ -201,6 +201,8 @@ this.BexerComponents.errorTransformer = (function (exports, utils) {
   exports.errorEventToPlainObject = errorEventToPlainObject;
   exports.errorToPlainObject = errorToPlainObject;
 
+  Object.defineProperty(exports, '__esModule', { value: true });
+
   return exports;
 
 }({}, BexerComponents.utils));

@@ -107,6 +107,8 @@ this.BexerComponents.utils = (function (exports) {
   exports.timeouted = timeouted;
   exports.workOrDie = workOrDie;
 
+  Object.defineProperty(exports, '__esModule', { value: true });
+
   return exports;
 
 }({}));

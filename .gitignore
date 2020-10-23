@@ -1,7 +1,7 @@
 errors.js
 dist
 *.swp
-generated-*
+generated-for-type-checks
 
 # KDE Dolphin
 .directory
