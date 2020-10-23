@@ -1,6 +1,7 @@
 {
   "packages": [
     "generated-for-dist/*",
+    "generated-for-type-checks/*",
     "examples/*"
   ],
   "version": "independent",
