@@ -13,10 +13,10 @@ function clean() {
 }
 
 function getFolders(dir) {
-    return fs.readdirSync(dir)
-      .filter(function(file) {
-        return fs.statSync(path.join(dir, file)).isDirectory();
-      });
+  return fs.readdirSync(dir)
+    .filter(function(file) {
+      return fs.statSync(path.join(dir, file)).isDirectory();
+    });
 }
 
 function copyForTypeChecks() {
@@ -26,7 +26,7 @@ function copyForTypeChecks() {
 
 function build() {
   const folders = getFolders('./src');
-  if (folders.length === 0) return; // nothing to do!
+  if (folders.length === 0) return; // Nothing to do!
   return Promise.all(
     folders.map(function(folder) {
       return new Promise((resolve) => exec('npx rollup -c ../rollup.config.js', { cwd: path.join('./src', folder) }, resolve));

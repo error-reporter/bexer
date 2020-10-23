@@ -1,10 +1,9 @@
 {
   "packages": [
     "generated-for-dist/*",
-    "generated-for-type-checks/*",
     "examples/*"
   ],
-  "version": "independent",
+  "version": "0.0.13",
   "command": {
     "version": {
       "conventionalCommits": true
