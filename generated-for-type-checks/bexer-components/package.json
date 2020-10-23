@@ -19,6 +19,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@bexer/commons": "^0.0.15"
+    "@bexer/commons": "^0.0.16"
   }
 }

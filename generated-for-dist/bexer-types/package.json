@@ -1,6 +1,6 @@
 {
   "name": "@bexer/types",
-  "version": "0.0.16",
+  "version": "0.0.1",
   "types": "./globals.d.ts",
   "keywords": [
     "browser-extensions",
@@ -11,8 +11,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
-    "@bexer/commons": "^0.0.16",
-    "@bexer/index": "^0.0.16"
+  "dependencies": {
+    "@bexer/commons": "0.0.16",
+    "@bexer/index": "0.0.16"
   }
 }
