@@ -1,7 +1,7 @@
 {
   "name": "example-esm-without-bundlers",
   "private": true,
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Bexer usage examples",
   "scripts": {
     "clean": "shx rm -rf ./dist && mkdir ./dist",

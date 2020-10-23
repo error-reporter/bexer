@@ -1,7 +1,7 @@
 {
   "name": "example-content-script",
   "private": true,
-  "version": "0.0.15",
+  "version": "0.0.16",
   "scripts": {
     "clean": "shx rm -rf ./dist && mkdir -p ./dist/js",
     "copy-src": "shx cp -r ./src/* ./dist/.",

@@ -1,6 +1,6 @@
 {
   "name": "@bexer/global-error-event-handlers",
-  "version": "0.0.5",
+  "version": "0.0.16",
   "module": "./esm/index.js",
   "main": "./esm/index.js",
   "keywords": [
@@ -9,11 +9,11 @@
     "event"
   ],
   "dependencies": {
-    "@bexer/error-event-listeners": "^0.0.5",
-    "@bexer/utils": "^0.0.5"
+    "@bexer/error-event-listeners": "^0.0.16",
+    "@bexer/utils": "^0.0.16"
   },
   "devDependencies": {
-    "@bexer/commons": "^0.0.3"
+    "@bexer/commons": "^0.0.16"
   },
   "publishConfig": {
     "access": "public"
