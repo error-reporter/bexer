@@ -10,8 +10,8 @@
     "catcher"
   ],
   "dependencies": {
-    "@bexer/commons": "^0.0.3",
-    "@bexer/utils": "^0.0.5"
+    "@bexer/commons": "^0.0.15",
+    "@bexer/utils": "^0.0.15"
   },
   "publishConfig": {
     "access": "public"
