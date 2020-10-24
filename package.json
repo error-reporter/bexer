@@ -2,9 +2,6 @@
   "name": "bexer-bundler",
   "version": "0.0.0",
   "description": "Error reporter for browser extensions",
-  "workspaces": [
-    "./generated-for-type-checks/*"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/error-reporter/bexer"
@@ -20,7 +17,7 @@
     "obsolete_build-lerna": "lerna exec --scope @bexer/* --ignore @bexer/components --ignore @bexer/types -- rollup -c=../rollup.config.js",
     "obsolete_clean": "shx rm -rf ./generated-for-dist ./generated-for-type-checks",
     "obsolete_build": "npm run clean && shx cp -r ./src/bexer-components ./generated-for-dist/. && npm run build-lerna",
-    "start": "npm run build",
+    "start": "gulp",
     "type-check": "tsc",
     "test:unit": "echo $TEST_TARGET && karma start karma.conf.js",
     "test:dev": "TEST_TARGET=$TEST_TARGET karma start --single-run --browsers ChromeHeadless karma.conf.js",

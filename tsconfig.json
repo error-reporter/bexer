@@ -18,11 +18,9 @@
     "chrome"
   ],
   "include": [
-    "./generated-for-type-checks/**/*"
+    "./generated-for-dist/**/*"
   ],
   "exclude": [
-    "./src",
-    "./generated-for-type-checks/**/iife/*",
-    "./generated-for-type-checks/rollup.config.js"
+    "./src/rollup.config.js"
   ]
 }
