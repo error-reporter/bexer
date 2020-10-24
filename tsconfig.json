@@ -21,6 +21,5 @@
     "./generated-for-dist/**/*"
   ],
   "exclude": [
-    "./src/rollup.config.js"
   ]
 }

@@ -17,11 +17,11 @@ const filenameToExportedName = (filename) => 'Bexer.' + filename
   .replace(/\.js$/, '')
   .replace(/-([^-])/g, (w, g) => g.toUpperCase());
 
-const getTasks = (format) =>
+const getTasks = (format = 'esm') =>
   shell.ls('./src/*\.js', './src/**/*\.js').map((jsFilePath) => ({
     input: jsFilePath,
     output: {
-      file: jsFilePath.replace(/\.\/src\//g, `./generated-for-dist/${format}/`),
+      file: jsFilePath.replace(/\.\/src\//g, `./generated-for-dist/`),
       format,
       name: filenameToExportedName(jsFilePath),
       globals: filenameToExportedName,
@@ -30,4 +30,4 @@ const getTasks = (format) =>
     plugins,
   }));
 
-export default [].concat(...['esm', 'iife'].map(getTasks));
+export default getTasks();

@@ -19,8 +19,7 @@ function build() {
 const copyFiles =
   parallel(
     () => src('./src/*.d.ts')
-      .pipe(dest('./generated-for-dist/esm/'))
-      .pipe(dest('./generated-for-dist/iife/')),
+      .pipe(dest('./generated-for-dist/.')),
 
     () => src('./LICENSE.md')
       .pipe(dest('./generated-for-dist/.')),
