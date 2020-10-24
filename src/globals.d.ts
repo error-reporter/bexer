@@ -1,9 +1,7 @@
 type DebugType = (...args: any[]) => (...args: any[]) => void;
 
-interface Window {
-  debug: DebugType,
-  Bexer: typeof import('./index'),
-}
+declare var Bexer: typeof import('./index');
+declare var debug: DebugType;
 
 type GetAllValuesOf<T> = T[keyof T];
 interface AnyStringToValuesOf<T> {

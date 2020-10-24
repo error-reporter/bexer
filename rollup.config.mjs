@@ -24,7 +24,9 @@ const getTasks = (format) =>
       file: jsFilePath.replace(/\.\/src\//g, `./generated-for-dist/${format}/`),
       format,
       name: filenameToExportedName(jsFilePath),
+      globals: filenameToExportedName,
     },
+    external: () => true,
     plugins,
   }));
 
