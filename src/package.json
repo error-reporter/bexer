@@ -1,6 +1,6 @@
 {
   "name": "bexer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Browser EXtensions Error Reporter catches global errors, shows notifications and opens error reporter in one click",
   "license": "See license in ./LICENSE.md",
   "module": "./index.js",
