@@ -11,7 +11,7 @@
     "start": "npm run build"
   },
   "devDependencies": {
-    "rollup": "2.1.0",
+    "rollup": "2.32.1",
     "shx": "^0.3.2"
   },
   "dependencies": {
