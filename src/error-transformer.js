@@ -1,8 +1,8 @@
-import { mandatory } from './utils';
+import { mandatory } from './utils.js';
 // import errorStackParser from 'error-stack-parser';
 // import StackTraceGps from 'stacktrace-gps';
 // import StackFrame from 'stackframe';
-import { toObject } from './private/errio';
+import { toObject } from './private/errio.js';
 
 /*
 const privateGetSourceMappedErrorStackAsync = (

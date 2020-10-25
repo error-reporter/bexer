@@ -1,6 +1,6 @@
 type DebugType = (...args: any[]) => (...args: any[]) => void;
 
-declare var Bexer: typeof import('./index');
+declare var Bexer: typeof import('./index.js');
 declare var debug: DebugType;
 
 type GetAllValuesOf<T> = T[keyof T];
@@ -14,4 +14,4 @@ type Json = undefined | null | string | number | boolean | JsonArray | JsonObjec
 
 type ErrorEventLike = ErrorEvent | chrome.proxy.ErrorDetails;
 
-type ErrorTypesTS = GetAllValuesOf<typeof import('./error-types')>;
+type ErrorTypesTS = GetAllValuesOf<typeof import('./error-types.js')>;

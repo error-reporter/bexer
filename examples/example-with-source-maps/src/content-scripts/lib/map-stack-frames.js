@@ -1,5 +1,5 @@
-import { SourceMapConsumer } from 'source-map';
-import ErrorStackParser from 'error-stack-parser';
+import { SourceMapConsumer } from 'source-map.js';
+import ErrorStackParser from 'error-stack-parser.js';
 
 const { mandatory } = window.Bexer.Utils;
 

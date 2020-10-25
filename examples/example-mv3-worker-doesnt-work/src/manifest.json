@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
 
-  "name": "Bexer source maps test",
+  "name": "Bexer MV3 worker test",
   "description": "Blow up internet!",
   "version": "0.0.0.1",
   "author": "homerjsimpson@example.com",
@@ -12,17 +12,8 @@
     "notifications"
   ],
 
-  "content_scripts": [{
-      "matches": [
-        "https://error-reporter.github.io/*"
-      ],
-      "run_at": "document_start",
-      "js": ["./content-scripts/receive-messages-from-webpages.js"]
-  }],
-
   "background": {
-    "persistent": false,
-    "page": "./background.html"
+    "service_worker": "./worker.js"
   },
 
   "browser_action": {

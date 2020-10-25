@@ -4,7 +4,7 @@ const plugins = [
 export default [
   {
     plugins,
-    input: './node_modules/@bexer/components/esm/utils.js',
+    input: './node_modules/bexer/utils.js',
     output: {
       file: './dist/js/inject/bexer-utils.js',
       format: 'iife',
@@ -13,7 +13,7 @@ export default [
   },
   {
     plugins,
-    input: './node_modules/@bexer/components/esm/error-transformer.js',
+    input: './node_modules/bexer/error-transformer.js',
     output: {
       file: './dist/js/inject/bexer-error-transformer.js',
       format: 'iife',
@@ -22,7 +22,7 @@ export default [
   },
   {
     plugins,
-    input: './node_modules/@bexer/components/expose-to-window-esm.js',
+    input: './node_modules/bexer/expose.js',
     output: {
       file: './dist/js/vendor/bexer/index.js',
       format: 'iife',

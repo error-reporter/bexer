@@ -11,6 +11,7 @@ const plugins = [
 ];
 
 const popupIndex = './dist/pages/popup/index.js';
+const contentScript = '/content-scripts/receive-messages-from-webpages.js'
 
 export default [
   {
@@ -19,6 +20,15 @@ export default [
     output: {
       file: './dist/index.js',
       format: 'esm',
+      sourcemap: true,
+    },
+  },
+  {
+    plugins,
+    input: './src' + contentScript,
+    output: {
+      file: './dist' + contentScript,
+      format: 'iife',
       sourcemap: true,
     },
   },
@@ -33,9 +43,9 @@ export default [
   },
   {
     plugins,
-    input: './node_modules/@bexer/bexer/expose-to-window.js',
+    input: './node_modules/bexer/expose.js',
     output: {
-      file: './dist/vendor/bexer/expose-to-window.js',
+      file: './dist/vendor/bexer/expose.js',
       format: 'esm',
       sourcemap: true,
     },

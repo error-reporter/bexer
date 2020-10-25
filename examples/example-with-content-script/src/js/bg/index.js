@@ -7,12 +7,12 @@
     chrome.tabs.create({ url: 'https://github.com/error-reporter/bexer/' });
   });
 
-  window.Bexer.addGlobalHandler((errorType, errorEvent) => {
+  globalThis.Bexer.addGlobalHandler((errorType, errorEvent) => {
     console.log('Global handler caught:', errorType, errorEvent);
-    window.lastErrorEvent = errorEvent;
+    globalThis.lastErrorEvent = errorEvent;
   });
 
-  const { notifyAbout } = window.Bexer.installErrorReporter({
+  const { notifyAbout } = globalThis.Bexer.installErrorReporter({
     submissionOpts: {
       sendReportsToEmail: 'foobar@example.com',
       sendReportsInLanguages: ['en', 'ru'],

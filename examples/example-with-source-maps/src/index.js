@@ -1,10 +1,10 @@
-window.Bexer.addGlobalHandler((errorType, errorEvent) => {
+globalThis.Bexer.addGlobalHandler((errorType, errorEvent) => {
 
   console.log('Global handler caught:', errorType, errorEvent);
-  window.lastErrorEvent = errorEvent;
+  globalThis.lastErrorEvent = errorEvent;
 });
 
-window.Bexer.installErrorReporter({
+globalThis.Bexer.installErrorReporter({
   submissionOpts: {
     handler: async ({ report }) => {
 
@@ -17,9 +17,9 @@ window.Bexer.installErrorReporter({
 
 console.log('Extension started.');
 
-window.bar = function foo() {
+globalThis.bar = function foo() {
   throw new Error('Err in BG');
 };
 
 console.log('Throwing error from bg! Notification is expected.');
-window.bar();
+globalThis.bar();

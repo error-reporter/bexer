@@ -1,4 +1,4 @@
-import { mandatory, assert, timeouted } from './utils';
+import { mandatory, assert, timeouted } from './utils.js';
 
 const manifest = chrome.runtime.getManifest();
 

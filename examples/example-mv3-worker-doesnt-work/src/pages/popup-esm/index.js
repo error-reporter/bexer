@@ -1,8 +1,6 @@
-'use strict'; // eslint-disable-line
-
 chrome.runtime.getBackgroundPage(async (bgWindow) => {
   await bgWindow.Bexer.installGlobalHandlersOnAsync(
-    { hostWindow: globalThis, nameForDebug: 'PUP' },
+    { hostWindow: window, nameForDebug: 'PUP' },
   );
   const { timeouted } = bgWindow.Bexer.Utils;
 
@@ -12,5 +10,5 @@ chrome.runtime.getBackgroundPage(async (bgWindow) => {
 
   };
 
-  //throw new TypeError('FROM POPUP!');
+  throw new TypeError('FROM POPUP!');
 });

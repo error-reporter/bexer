@@ -1,4 +1,4 @@
-import { workOrDie } from '../utils';
+import { workOrDie } from '../utils.js';
 
 const getSettingsAsync = () =>
   new Promise((resolve) =>

@@ -4,7 +4,7 @@
     chrome.runtime.sendMessage(msg, Bexer.Utils.workOrDie(resolve))
   ));
 
-  window.addEventListener('error', (event) => {
+  globalThis.addEventListener('error', (event) => {
     if (!event.filename || !event.filename.endsWith('inject.js')) {
       return;
     }
@@ -16,5 +16,5 @@
     });
   });
 
-  setInterval(() => { throw new Error('SOME ERROR'); }, 3000);
+  setTimeout(() => { throw new Error('SOME ERROR'); }, 0);
 }

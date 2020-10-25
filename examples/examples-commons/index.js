@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const Bexer = window.Bexer;
+const Bexer = globalThis.Bexer;
 
 console.log('Extension started.');
 console.log('Bexer is:', Bexer);
@@ -11,9 +11,9 @@ Bexer.installErrorReporter({
   },
 });
 
-window.bar = function foo() {
+globalThis.bar = function foo() {
   throw new Error('Err in BG');
 };
 
 console.log('Throwing error from bg! Notification is expected.');
-window.bar();
+globalThis.bar();

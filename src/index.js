@@ -2,18 +2,18 @@ import {
   installGlobalHandlersOn,
   installGlobalHandlersOnAsync,
   addGlobalHandler,
-} from './global-error-event-handlers';
-import { installErrorNotifier } from './error-notifier';
+} from './global-error-event-handlers.js';
+import { installErrorNotifier } from './error-notifier.js';
 import {
   openErrorReporter,
   makeReport,
   installErrorSubmissionHandler,
-} from './error-reporter';
+} from './error-reporter.js';
 import {
   errorEventToPlainObject,
-} from './error-transformer';
-import * as ErrorTypes from './error-types';
-import * as Utils from './utils';
+} from './error-transformer.js';
+import * as ErrorTypes from './error-types.js';
+import * as Utils from './utils.js';
 
 const { mandatory, assert } = Utils;
 

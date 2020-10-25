@@ -9,7 +9,7 @@
     "copy-vendor": "shx cp -r ../../vendor ./dist/.",
     "copy-pages": "shx cp -r ../examples-commons/pages ./dist/.",
     "copy-index": "shx cp ../examples-commons/index.js ./dist/.",
-    "copy-esm-bexer": "shx cp -r ./node_modules/@bexer/components ./dist/vendor/bexer",
+    "copy-esm-bexer": "shx cp -r ./node_modules/bexer ./dist/vendor/bexer",
     "build": "npm run clean && npm run copy-src && npm run copy-vendor && npm run copy-pages && npm run copy-index && npm run copy-esm-bexer",
     "start": "npm run build"
   },
@@ -17,6 +17,6 @@
     "shx": "^0.3.2"
   },
   "dependencies": {
-    "@bexer/components": "0.0.12"
+    "bexer": "file:../../generated-for-dist"
   }
 }

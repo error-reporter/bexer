@@ -1,13 +1,11 @@
-// import * as Bexer from './vendor/bexer/index.js'
-import { mapErrorAsync } from './lib/map-stack-frames.js';
+import { mapErrorAsync } from './lib/map-stack-frames';
 
 console.log('CONTENT SCRIPT STARTED', chrome.runtime);
-// const port = chrome.runtime.connect();
 
-window.addEventListener('message', function(event) {
+globalThis.addEventListener('message', function(event) {
 
     console.log('CS RECEIVED:', event);
-    if (event.source != window) {
+    if (event.source != globalThis) {
         console.log('EVENT.SOURCE IS:', event.source);
         return;
     }

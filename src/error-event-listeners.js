@@ -1,7 +1,7 @@
-import Debug from './private/debug';
-import { mandatory, assert, timeouted } from './utils';
-import * as ErrorTypes from './error-types';
-import { areProxySettingsControlledAsync } from './private/proxy-settings';
+import Debug from './private/debug.js';
+import { mandatory, assert, timeouted } from './utils.js';
+import * as ErrorTypes from './error-types.js';
+import { areProxySettingsControlledAsync } from './private/proxy-settings.js';
 
 const debug = Debug('bexer:catcher');
 

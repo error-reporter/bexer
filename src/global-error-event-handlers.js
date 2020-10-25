@@ -1,6 +1,6 @@
-import { installTypedErrorEventListenersOn } from './error-event-listeners';
-import { mandatory } from './utils';
-import * as ErrorTypes from './error-types';
+import { installTypedErrorEventListenersOn } from './error-event-listeners.js';
+import { mandatory } from './utils.js';
+import * as ErrorTypes from './error-types.js';
 /**
   @typedef {
     (_: ErrorTypesTS, __: ErrorEvent | chrome.proxy.ErrorDetails) => any

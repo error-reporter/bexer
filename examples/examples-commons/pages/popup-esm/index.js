@@ -1,6 +1,6 @@
 chrome.runtime.getBackgroundPage(async (bgWindow) => {
   await bgWindow.Bexer.installGlobalHandlersOnAsync(
-    { hostWindow: window, nameForDebug: 'PUP' },
+    { hostWindow: globalThis, nameForDebug: 'PUP' },
   );
   const { timeouted } = bgWindow.Bexer.Utils;
 

@@ -1,12 +1,12 @@
 {
-  "name": "example-with-source-maps",
+  "name": "example-worker",
   "private": true,
   "version": "0.0.17",
   "scripts": {
     "clean": "shx rm -rf ./dist && mkdir ./dist",
     "copy-src": "shx cp -r ./src/* ./dist/. && shx cp node_modules/source-map/lib/mappings.wasm ./dist/.",
     "copy-vendor": "shx cp -r ../../vendor ./dist/.",
-    "copy-pages": "shx mkdir ./dist/pages && shx cp -r ../examples-commons/pages/popup-esm ./dist/pages/popup",
+    "copy-pages": "shx cp -r ../examples-commons/pages/popup-esm ./dist/pages/popup",
     "minify-popup-script": "rollup -c",
     "build": "npm run clean && npm run copy-src && npm run copy-vendor && npm run copy-pages && npm run minify-popup-script",
     "start": "npm run build"
