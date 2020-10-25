@@ -1,3 +1,3 @@
 import * as Bexer from './index.js';
 
-window.Bexer = Bexer;
+globalThis.Bexer = Bexer;

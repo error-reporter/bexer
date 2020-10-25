@@ -1,2 +1,2 @@
-export default window.debug || (/** @type {DebugType} */((/* Logger ID */) =>
+export default globalThis.debug || (/** @type {DebugType} */((/* Logger ID */) =>
   (/* Log message */) => { /* Ignore all */ }));

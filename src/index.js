@@ -71,7 +71,7 @@ export const installErrorReporter = ({
   );
 
   const detachGlobalHandlers = installGlobalHandlersOn({
-    hostWindow: window,
+    hostWindow: globalThis,
     nameForDebug: 'BG',
     onlyTheseErrorTypes,
   });

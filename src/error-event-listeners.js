@@ -11,7 +11,7 @@ const bgName = 'BG';
 */
 const generateNameForDebug = (hostWindow) => {
 
-  if (hostWindow === window) {
+  if (hostWindow === globalThis) {
     return bgName;
   }
   return hostWindow.location.href
@@ -40,7 +40,7 @@ export const installTypedErrorEventListenersOn = ({
   onlyTheseErrorTypes = [ErrorTypes.EXT_ERROR, ErrorTypes.PAC_ERROR],
 }, cb) => {
 
-  const ifInBg = hostWindow === window;
+  const ifInBg = hostWindow === globalThis;
   if (ifInBg) {
     assert(
       nameForDebug === 'BG',
