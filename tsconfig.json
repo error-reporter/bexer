@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
 
+    "outDir": "./dist",
     "noEmit": false,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "declarationDir": "./generated-for-dist",
 
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -18,7 +16,7 @@
     "chrome"
   ],
   "include": [
-    "./generated-for-dist/**/*"
+    "./src/**/*"
   ],
   "exclude": [
   ]

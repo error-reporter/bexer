@@ -1,6 +1,6 @@
 import { workOrDie } from '../utils.js';
 
-const getSettingsAsync = () =>
+const getSettingsAsync: () => Promise<chrome.types.ChromeSettingGetResultDetails> = () =>
   new Promise((resolve) =>
     chrome.proxy.settings.get(
       {},
@@ -17,22 +17,15 @@ const getSettingsAsync = () =>
 *
 * See: https://developer.chrome.com/extensions/proxy
 */
-/**
-  @param {chrome.types.ChromeSettingGetResultDetails} [details_]
-  @returns {Promise<boolean>}
-*/
-export const areProxySettingsControllableAsync = async (details_) => {
-
+export const areProxySettingsControllableAsync = async (
+    details_?: chrome.types.ChromeSettingGetResultDetails,
+  ): Promise<boolean> => {
   const details = details_ || await getSettingsAsync();
   return details.levelOfControl.startsWith('controllable_by_this');
 
 };
 
-/**
-  @param {chrome.types.ChromeSettingGetResultDetails} [details_]
-  @returns {Promise<boolean>}
-*/
-export const areProxySettingsControlledAsync = async (details_) => {
+export const areProxySettingsControlledAsync = async (details_?: chrome.types.ChromeSettingGetResultDetails): Promise<boolean> => {
 
   const details = details_ || await getSettingsAsync();
   return details.levelOfControl.startsWith('controlled_by_this');
@@ -41,21 +34,14 @@ export const areProxySettingsControlledAsync = async (details_) => {
 
 export const Messages = {
 
-  /**
-    @param {string} niddle
-    @returns {string}
-  */
-  searchSettingsForAsUrl(niddle) {
+  searchSettingsForAsUrl(niddle: string): string {
 
     //  `niddle` may be: 'proxy'.
     const localedNiddle = chrome.i18n.getMessage(niddle) || niddle;
     return `chrome://settings/search#${localedNiddle}`;
   },
 
-  /**
-    @returns {string}
-  */
-  whichExtensionAsHtml() {
+  whichExtensionAsHtml(): string {
 
     // Example: "Other extension controls proxy! <a...>Which?</a>"
     const otherMsg = chrome.i18n.getMessage('errreporter_noControl') || 'Other extension controls proxy!';

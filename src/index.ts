@@ -25,15 +25,10 @@ export {
   addGlobalHandler,
 };
 
-/**
-  @param {ErrorTypesTS} errorType
-  @param {ErrorEventLike} errorEventLike
-  @returns {Promise<any>}
-*/
 const toPlainObjectAsync = async (
-  errorType = mandatory(),
-  errorEventLike = mandatory(),
-) => {
+  errorType: ErrorTypesTS = mandatory(),
+  errorEventLike: ErrorEventLike = mandatory(),
+): Promise<any> => {
 
   if (errorType !== ErrorTypes.EXT_ERROR) {
     return errorEventLike;
@@ -41,20 +36,6 @@ const toPlainObjectAsync = async (
   return errorEventToPlainObject(errorEventLike);
 };
 
-/**
-  @param {{
-    submissionOpts: {
-      handler?: Function | undefined,
-      sendReportsToEmail?: string | undefined,
-      sendReportsInLanguages?: Array<string>,
-      onlyTheseErrorTypes?: ErrorTypesTS[],
-    },
-    ifToNotifyAboutAsync?: (
-        errorType: ErrorTypesTS,
-        errorEvent: ErrorEventLike,
-      ) => boolean,
-  }} _
-*/
 export const installErrorReporter = ({
   submissionOpts: {
     handler,
@@ -63,7 +44,16 @@ export const installErrorReporter = ({
     onlyTheseErrorTypes,
   },
   ifToNotifyAboutAsync = () => true,
-}) => {
+}: {
+    submissionOpts: {
+      handler?: Function | undefined; sendReportsToEmail?: string | undefined; sendReportsInLanguages?: Array<string>;
+      onlyTheseErrorTypes?: ErrorTypesTS[];
+    };
+    ifToNotifyAboutAsync?: (
+      errorType: ErrorTypesTS,
+      errorEvent: ErrorEventLike
+    ) => boolean;
+  }) => {
 
   assert(
     !(handler && sendReportsToEmail),
@@ -85,11 +75,7 @@ export const installErrorReporter = ({
     uninstallErrorNotifier,
   } = installErrorNotifier();
 
-  /**
-    @param {ErrorTypesTS} errorType
-    @param {ErrorEventLike} errorEventLike
-  */
-  const anotherGlobalHandler = async (errorType, errorEventLike) => {
+  const anotherGlobalHandler = async (errorType: ErrorTypesTS, errorEventLike: ErrorEventLike) => {
 
     try {
       const ifToNotify = await ifToNotifyAboutAsync(
@@ -131,11 +117,7 @@ export const installErrorReporter = ({
   };
   return {
     uninstallErrorReporter,
-    /**
-      @param {ErrorEventLike} errorEventLike
-      @param {ErrorTypesTS} errorType
-    */
-    notifyAbout: (errorEventLike, errorType = ErrorTypes.EXT_ERROR) => {
+    notifyAbout: (errorEventLike: ErrorEventLike, errorType: ErrorTypesTS = ErrorTypes.EXT_ERROR) => {
 
       anotherGlobalHandler(errorType, errorEventLike);
     },

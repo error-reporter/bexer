@@ -1,27 +1,11 @@
-'use strict';
-
 module.exports = {
-  parser: 'babel-eslint',
-  env: {
-    browser: true,
-    webextensions: true,
-  },
-  globals: {
-    chrome: true,
-  },
-  extends: [
-//    'plugin:flowtype/recommended',
-    'eslint:recommended',
-    'airbnb',
-  ],
+  root: true,
+  parser: '@typescript-eslint/parser',
   plugins: [
-//    'flowtype',
+    '@typescript-eslint',
   ],
-  rules: {
-    'arrow-parens': ['error', 'always'], // (arg) => thingy
-    'padded-blocks': 'off', // (arg) => {\n\n_body_\n\n}
-    'no-plusplus': 'off',
-    'consistent-return': 'off',
-    'implicit-arrow-linebreak': 'off',
-  },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
 };

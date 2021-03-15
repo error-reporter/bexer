@@ -45,13 +45,10 @@ export const getSourceMappedErrorStackAsync = (error = mandatory()) =>
   privateGetSourceMappedErrorStackAsync(error, new StackTraceGps());
 
 */
-/**
-  @param {Error} error
-*/
-export const errorToPlainObject = (error = mandatory()) =>
+export const errorToPlainObject = (error: Error = mandatory()) =>
   toObject(error, { stack: true, private: true });
 
-/** @typedef {{
+type PlainErrorEventLike = {
   message?: string,
   filename?: string,
   lineno?: number,
@@ -60,13 +57,11 @@ export const errorToPlainObject = (error = mandatory()) =>
   path?: Array<Element | undefined> | string,
   error?: JsonObject,
   [key: string]: any,
-}} PlainErrorEventLike */
+};
 
-/** @param {ErrorEventLike} errorEvent */
-export const errorEventToPlainObject = (errorEvent = mandatory()) => {
+export const errorEventToPlainObject = (errorEvent: ErrorEventLike = mandatory()) => {
 
-  /** @type {PlainErrorEventLike} */
-  const plainObj = [
+  const plainObj: PlainErrorEventLike = [
     'message',
     'filename',
     'lineno',
@@ -74,14 +69,9 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
     'type',
     'path',
   ].reduce(
-    /**
-      @param {PlainErrorEventLike} acc
-      @param {string} prop
-      @returns {PlainErrorEventLike}
-    */
-    (acc, prop) => {
+    (acc: PlainErrorEventLike, prop: string): PlainErrorEventLike => {
 
-      acc[prop] = (/** @type {PlainErrorEventLike} */(errorEvent))[prop];
+      acc[prop] = (errorEvent as PlainErrorEventLike)[prop];
       return acc;
 
     },
@@ -107,7 +97,6 @@ export const errorEventToPlainObject = (errorEvent = mandatory()) => {
 
     }).join(', ');
 
-    /** @type {(typeof plainObj) | { path: string }} */
     (plainObj).path = `[${pathStr}]`;
   }
 

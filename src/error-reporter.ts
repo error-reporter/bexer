@@ -2,8 +2,7 @@ import { mandatory, assert, timeouted } from './utils.js';
 
 const manifest = chrome.runtime.getManifest();
 
-/** @param {Function} handler */
-export const installErrorSubmissionHandler = (handler) =>
+export const installErrorSubmissionHandler = (handler: Function) =>
   chrome.runtime.onMessage.addListener(
     timeouted({
       /*
@@ -16,12 +15,7 @@ https://developer.chrome.com/extensions/runtime#event-onMessage
       */
       returnValue: true,
       // Don't make cb async, because FireFox doesn't catch promise rejections.
-      /**
-        @param {{ action: 'SEND_REPORT' }} request
-        @param {any} sender
-        @param {Function} sendResponse
-      */
-      cb: (request, sender, sendResponse) => {
+      cb: (request: { action: 'SEND_REPORT'; }, sender: any, sendResponse: Function) => {
 
         if (request.action !== 'SEND_REPORT') {
           return;
@@ -41,16 +35,13 @@ https://developer.chrome.com/extensions/runtime#event-onMessage
     }),
   );
 
-/**
-  @param {{
-    errorType?: ErrorTypesTS,
-    serializablePayload: JsonObject,
-  }} _
-*/
 export const makeReport = ({
   errorType,
   serializablePayload = mandatory(),
-}) => ({
+}: {
+    errorType?: ErrorTypesTS;
+    serializablePayload: JsonObject;
+  }) => ({
   payload: serializablePayload,
   extName: manifest.name,
   version: manifest.version,
@@ -59,26 +50,19 @@ export const makeReport = ({
   platform: navigator.platform,
 });
 
-/**
-  @param {{
-    ifSubmissionHandlerInstalled?: boolean,
-    sendReportsToEmail?: string,
-    sendReportsInLanguages?: Array<string>,
-    errorTitle: string,
-    report: {
-      extName: string,
-      version: string,
-      payload: JsonObject,
-    },
-  }} _
-*/
 export const openErrorReporter = ({
   ifSubmissionHandlerInstalled,
   sendReportsToEmail,
   sendReportsInLanguages = ['en'],
   errorTitle = mandatory(),
   report = mandatory(),
-}) => {
+}: {
+    ifSubmissionHandlerInstalled?: boolean;
+    sendReportsToEmail?: string; sendReportsInLanguages?: Array<string>; errorTitle: string; report: {
+      extName: string;
+      version: string; payload: JsonObject;
+    };
+  }) => {
 
   assert(
     !(ifSubmissionHandlerInstalled && sendReportsToEmail),

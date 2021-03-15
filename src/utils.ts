@@ -7,29 +7,21 @@
 3. Add utils for safer coding: `mandatory`, `throwIfError`.
 
 */
-/** @returns {never} */
-export const mandatory = () => {
+export const mandatory = (): never => {
 
   throw new TypeError(
     'Missing required argument. Be explicit if you swallow errors.',
   );
 };
 
-/**
-  @param {any} value
-  @param {string} message
-*/
-export const assert = (value, message) => {
+export const assert = (value: any, message: string) => {
 
   if (!value) {
     throw new Error(message || `Assertion failed, value: ${value}`);
   }
 };
 
-/**
-  @param {Error[]} args
-*/
-export const throwIfError = (...args) => {
+export const throwIfError = (...args: Error[]) => {
 
   assert(args.length <= 1, 'Only zero or one argument (error) must be passed.');
   const err = args[0] || checkChromeError();
@@ -53,19 +45,16 @@ export const checkChromeError = () => {
 };
 
 // setTimeout fixes error context, see https://crbug.com/357568
-/** @param {Function | { cb: Function, returnValue: any }} arg */
-export const timeouted = (arg = mandatory()) => {
+export const timeouted = (arg: Function | { cb: Function; returnValue: any; } = mandatory()) => {
 
-  /** @type {Function} */
-  let cb;
-  /** @type {any} */
-  let returnValue;
+  let cb: Function;
+  let returnValue: any;
   if (typeof arg === 'function') {
     cb = arg;
   } else {
     ({ cb = mandatory(), returnValue } = arg);
   }
-  return (/** @type {any[]} */...args) => {
+  return (...args: any[]) => {
 
     setTimeout(() => cb(...args), 0);
     return returnValue;
@@ -73,18 +62,13 @@ export const timeouted = (arg = mandatory()) => {
 };
 
 // Take error first callback and convert it to chrome API callback.
-/** @param {(_: Error) => any} cb */
-export const chromified = (cb = mandatory()) =>
-  /**
-    @param {any[]} args
-  */
-  function wrapper(...args) {
+export const chromified = (cb: (_: Error) => any = mandatory()) =>
+  function wrapper(...args: any[]) {
 
     const err = checkChromeError();
     timeouted(cb)(err, ...args);
   };
-/** @param {Function} [cb] */
-export const workOrDie = (cb) =>
+export const workOrDie = (cb: Function) =>
 
   chromified((err, ...args) => {
 

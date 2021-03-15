@@ -6,10 +6,7 @@ import { areProxySettingsControlledAsync } from './private/proxy-settings.js';
 const debug = Debug('bexer:catcher');
 
 const bgName = 'BG';
-/**
- * @param {Window} hostWindow
-*/
-const generateNameForDebug = (hostWindow) => {
+const generateNameForDebug = (hostWindow: typeof globalThis) => {
 
   if (hostWindow === globalThis) {
     return bgName;
@@ -20,25 +17,21 @@ const generateNameForDebug = (hostWindow) => {
     .toUpperCase();
 };
 
-/**
-  @param {{
-    hostWindow: Window,
-    typedErrorEventListener: (
-      _: ErrorTypesTS,
-      __: ErrorEvent | chrome.proxy.ErrorDetails,
-    ) => any,
-    nameForDebug?: string,
-    onlyTheseErrorTypes?: ErrorTypesTS[],
-  }} _
-  @param {Function} [cb]
-*/
-// eslint-disable-next-line
 export const installTypedErrorEventListenersOn = ({
   hostWindow = mandatory(),
   typedErrorEventListener = mandatory(),
   nameForDebug = generateNameForDebug(hostWindow),
   onlyTheseErrorTypes = [ErrorTypes.EXT_ERROR, ErrorTypes.PAC_ERROR],
-}, cb) => {
+}: {
+  hostWindow: typeof globalThis;
+  typedErrorEventListener: (
+    _: ErrorTypesTS,
+    __: ErrorEvent | chrome.proxy.ErrorDetails,
+  ) => unknown;
+  nameForDebug?: string;
+  onlyTheseErrorTypes?: ErrorTypesTS[],
+// eslint-disable-next-line @typescript-eslint/ban-types
+}, cb?: Function): () => void => {
 
   const ifInBg = hostWindow === globalThis;
   if (ifInBg) {
@@ -51,12 +44,11 @@ export const installTypedErrorEventListenersOn = ({
   }
   debug(ifInBg ? 'Installing handlers in BG.' : `Installing handlers in ${nameForDebug}.`);
 
-  /** @type {Function[]} */
-  const uninstallers = [];
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const uninstallers: Function[] = [];
   const ifExtErr = onlyTheseErrorTypes.includes(ErrorTypes.EXT_ERROR);
   if (ifExtErr) {
-    /** @param {ErrorEvent} errorEvent */
-    const errorHandler = (errorEvent) => {
+    const errorHandler = (errorEvent: ErrorEvent) => {
 
       debug(nameForDebug, 'caught:', errorEvent);
       typedErrorEventListener(ErrorTypes.EXT_ERROR, errorEvent);
@@ -67,11 +59,7 @@ export const installTypedErrorEventListenersOn = ({
     uninstallers.push(() =>
       hostWindow.removeEventListener('error', errorHandler, ifUseCapture),
     );
-    /**
-      @param {PromiseRejectionEvent} event
-      @returns {never}
-    */
-    const rejHandler = (event) => {
+    const rejHandler = (event: PromiseRejectionEvent): void => {
 
       event.preventDefault();
       debug(nameForDebug, 'rethrowing promise...');
@@ -87,10 +75,7 @@ export const installTypedErrorEventListenersOn = ({
 
   const ifPacErr = onlyTheseErrorTypes.includes(ErrorTypes.PAC_ERROR);
   if (chrome.proxy && ifInBg && ifPacErr) {
-    /**
-      @param {chrome.proxy.ErrorDetails} details
-    */
-    const listener = async (details) => {
+    const listener = async (details: chrome.proxy.ErrorDetails) => {
 
       // TODO: This handler is not timeouted.
       // TODO: Test throwing error here and catching it.

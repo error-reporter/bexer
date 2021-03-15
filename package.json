@@ -7,16 +7,7 @@
     "url": "https://github.com/error-reporter/bexer"
   },
   "scripts": {
-    "lint-packages": "eslint --ignore-pattern bexer-components --ignore-pattern node_modules --ignore-pattern errio.js ./packages",
-    "lint-src": "eslint ./src/**/*.js",
-    "lint-examples": "eslint ./examples --ignore-pattern node_modules --ignore-pattern dist",
-    "lint-root": "eslint ./*.js",
-    "lint-tests": "eslint test",
-    "lint": "npm run lint-src && npm run lint-packages && npm run lint-root && npm run lint-examples && npm run lint-tests",
     "pack-debug": "cd ./node_modules/debug && npm install --development && npm run build:debug && cd - && cp ./node_modules/debug/dist/debug.es6.js ./vendor/optional-debug.es6.js",
-    "obsolete_build-lerna": "lerna exec --scope @bexer/* --ignore @bexer/components --ignore @bexer/types -- rollup -c=../rollup.config.js",
-    "obsolete_clean": "shx rm -rf ./generated-for-dist ./generated-for-type-checks",
-    "obsolete_build": "npm run clean && shx cp -r ./src/bexer-components ./generated-for-dist/. && npm run build-lerna",
     "start": "gulp",
     "type-check": "tsc",
     "test:unit": "echo $TEST_TARGET && karma start karma.conf.js",
@@ -27,38 +18,13 @@
   "author": "ilyaigpetrov <ilyaigpetrov@gmail.com>, (https://github.com/ilyaigpetrov)",
   "license": "GPL-3.0+",
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/preset-typescript": "^7.12.1",
-    "@types/chrome": "0.0.125",
-    "babel-eslint": "^10.1.0",
-    "chai": "^4.2.0",
-    "del": "^6.0.0",
-    "eslint": "^7.11.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.21.5",
-    "gulp": "^4.0.2",
-    "karma": "^5.2.3",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-firefox-launcher": "^2.0.0",
-    "karma-mocha": "^2.0.1",
-    "lerna": "^3.22.1",
-    "mocha": "^8.2.0",
-    "rollup": "^2.32.1",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-node-resolve": "^4.2.4",
-    "rollup-stream": "^1.24.1",
-    "shelljs": "^0.8.4",
-    "shx": "^0.3.2",
-    "sinon": "^9.2.0",
-    "sinon-chrome": "^3.0.1",
-    "typescript": "^4.0.3"
+    "@types/chrome": "^0.0.133",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.22.0",
+    "typescript": "^4.2.3"
   },
   "dependencies": {
-    "debug": "^4.2.0"
+    "debug": "^4.3.1"
   }
 }

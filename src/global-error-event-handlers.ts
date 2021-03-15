@@ -1,32 +1,23 @@
 import { installTypedErrorEventListenersOn } from './error-event-listeners.js';
 import { mandatory } from './utils.js';
 import * as ErrorTypes from './error-types.js';
-/**
-  @typedef {
-    (_: ErrorTypesTS, __: ErrorEvent | chrome.proxy.ErrorDetails) => any
-  } ErrorHandler
-*/
+type ErrorHandler = {
+  (_: ErrorTypesTS, __: ErrorEvent | chrome.proxy.ErrorDetails): any
+};
 
 /*
  In this file we will be using term handler instead of listener.
  Listener term is already used in error-event-listners module.
  I hope it will make it easier to distinct methods of one API from another.
 */
-/**
-  @type {{ [key: string]: Array<ErrorHandler> }}
-*/
-let globalTypedErrorEventHandlers = {
+let globalTypedErrorEventHandlers: { [key: string]: Array<ErrorHandler>; } = {
   trusted: [],
   untrusted: [],
 }
 
-/**
-  @param {ErrorHandler} handler
-  @param {string} [category]
-*/
 export const addGlobalHandler = (
-  handler = mandatory(),
-  category = 'untrusted',
+  handler: ErrorHandler = mandatory(),
+  category: string = 'untrusted',
 ) => {
 
   globalTypedErrorEventHandlers[category].push(handler);
@@ -39,12 +30,10 @@ export const addGlobalHandler = (
   return removeHandler;
 };
 
-/** @type {ErrorHandler} */
-const triggerTrusted = (...args) =>
+const triggerTrusted: ErrorHandler = (...args) =>
   globalTypedErrorEventHandlers['trusted'].forEach((handler) => handler(...args));
 
-/** @type {ErrorHandler} */
-const triggerGlobalHandlers = (...args) => {
+const triggerGlobalHandlers: ErrorHandler = (...args) => {
 
   triggerTrusted(...args);
   globalTypedErrorEventHandlers['untrusted'].forEach((handler) => {
@@ -57,22 +46,18 @@ const triggerGlobalHandlers = (...args) => {
   });
 };
 
-/**
-  @typedef {{
-    hostWindow: Window,
-    nameForDebug: string,
-    onlyTheseErrorTypes?: ErrorTypesTS[],
-  }} TargetWindowOpts
-  @param {TargetWindowOpts} opts
-  @param {(_: Function) => any} [cb]
-*/
+type TargetWindowOpts = {
+  hostWindow: typeof globalThis,
+  nameForDebug: string,
+  onlyTheseErrorTypes?: ErrorTypesTS[],
+};
 export const installGlobalHandlersOn = (
   {
     hostWindow,
     nameForDebug,
     onlyTheseErrorTypes,
-  },
-  cb,
+  }: TargetWindowOpts,
+  cb?: Function,
 ) => {
   const uninstallGlobalHandlers = installTypedErrorEventListenersOn(
     {
@@ -86,10 +71,7 @@ export const installGlobalHandlersOn = (
   return uninstallGlobalHandlers;
 };
 
-/**
- @param {TargetWindowOpts} opts
-*/
-export const installGlobalHandlersOnAsync = (opts) =>
+export const installGlobalHandlersOnAsync = (opts: TargetWindowOpts) =>
   new Promise((resolve) =>
     installGlobalHandlersOn(
       opts,

@@ -1,5 +1,5 @@
 /*
-Errio repository: https://github.com/programble/errio
+Errio repository: https://github.com/causal-agent/errio.
 This code derives from Errio libarary distributed under the following license.
 
 Copyright © 2015, Curtis McEnroe curtis@cmcenroe.me
@@ -10,15 +10,22 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 
 */
 
+type OptionsType = {
+  recursive: boolean,
+  inherited: boolean,
+  stack: boolean,
+  private: boolean,
+  exclude: Array<string>,
+  include: Array<string>,
+};
+
 // Default options for all serializations.
-const defaultOptions = {
+const defaultOptions: OptionsType = {
   recursive: true, // Recursively serialize and deserialize nested errors
   inherited: true, // Include inherited properties
   stack: false,    // Include stack property
   private: false,  // Include properties with leading or trailing underscores
-  /** @type {Array<string>} */
   exclude: [],     // Property names to exclude (low priority)
-  /** @type {Array<string>} */
   include: [],     // Property names to include (high priority)
 };
 
@@ -26,16 +33,12 @@ const defaultOptions = {
 // on top of the global defaults and the registered option overrides. If the
 // constructor of the error instance has not been registered yet, register it
 // with the provided options.
-/**
-  @param {Error} error
-*/
-export const toObject = (error, callOptions = {}) => {
+export const toObject = (error: Error, callOptions = {}) => {
 
   const options = { ...defaultOptions, ...callOptions };
 
   // Always explicitly include essential error properties.
-  /** @type {JsonObject} */
-  const object = {
+  const object: JsonObject = {
     name: error.name,
     message: error.message,
   };
@@ -44,10 +47,11 @@ export const toObject = (error, callOptions = {}) => {
     object.stack = error.stack;
   }
 
-  for (const prop in error) {
+  let prop: keyof Error;
+  for (prop in error) {
     // Skip exclusion checks if property is in include list.
     if (!options.include.includes(prop)) {
-      if (typeof(/** @type {any} */(error)[prop]) === 'function') continue;
+      if (typeof((error)[prop]) === 'function') continue;
 
       if (options.exclude.includes(prop)) continue;
 
@@ -62,7 +66,7 @@ export const toObject = (error, callOptions = {}) => {
       }
     }
 
-    const value = /** @type {any} */(error)[prop];
+    const value: any = (error)[prop];
 
     // Recurse if nested object has name and message properties.
     if (typeof value === 'object' && value && value.name && value.message) {
